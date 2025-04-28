@@ -1,0 +1,812 @@
+
+Agenda
+======
+
+About Powershell
+
+cmdlet
+
+Alias
+
+Script
+------
+  1. Variables
+  2. Operators
+  3. Conditional statements
+  4. Looping Statements
+  5. File/ Directory Manipulation
+  6. Array
+  7. Hash
+  8. Function
+  9. Regx
+  10. Class-Object-Method
+
+========================================================================================
+
+filename.ps1  --> powershell script file
+
+
+shell                  powershell
+
+commands		commands + cmdlets
+
+output is text         output of cmdlets are objects
+
+commands are binaries   cmdlets returns objects of .Net class
+
+
+cmdlet1 | cmdlet2
+|--o/p ----i/p-----o/p
+
+get-date
+get-process
+get-childitem
+
+
+cmdlet---> verb-Noun
+
+
+ls  -> command
+vs
+get-childItem   -> cmdlet
+
+
+ps  -> command
+vs
+Get-Process  -> cmdlet
+
+
+Case Insensitive
+
+
+Get-Verb
+
+Get
+Set
+Start
+Stop
+out      ---> with pipeline
+New
+
+Get-command | out-host -paging     (page view)
+|
+cmdlet1   | cmdlet2
+
+Get-help <cmdlet> 
+
+
+# earlier version
+
+Get-help <cmdlet>  -examples
+
+Get-Help <cmdlet>  -details   # docs + more egs
+
+# now
+
+get-help <cmdlet> -online   (or) -?
+
+
+other shell (bash)
+-------------------
+
+date   -> cmd only
+
+echo "Hello"  -> cmd with arg
+
+echo "Today : `date +D` " -> cmd with cmd   $()
+
+
+
+cmd with cmd  $()  (or)  ()
+
+
+1.system management
+Winx cmdlet	VS Linux Bash cmd
+
+Get-Process    Vs  ps
+
+start-service	vs systemctl start service
+
+stop-service    vs "         stop   "
+get-service
+set-service
+
+
+2. File Management
+
+get-childItem   vs  ls
+New-Item
+
+set-location   vs cd
+copy-Item   vs cp
+
+
+3. Network Management
+
+Get-NetIpAddress
+Get-NetAdapter
+Set-NetAdapter
+
+object===> properties + Methods
+
+Verb-Noun|Get-Member   => analyze object
+
+
+##################################
+
+$object= Get-classname           Get-Service   --->       
+					System.ServiceProcess.ServiceController
+
+Get-Service |  Get-Member
+...
+...
+
+$object.method1()
+$object.method2()
+
+
+
+Get-Alias
+
+Set-Alias -name ping -value Test-NetConnection
+
+gci
+get-childItem | select-Object Name
+gci|select-object Name
+gci| select Name
+
+
+
+get-childItem | foreach-object {
+copy-Item -path $_.FullName C:\NewDirectory\ 
+}
+
+is same as
+
+gci | % { copy $_.Fullname C:\NewDirectory\ }
+
+$?- exit status of last cmd
+$_  -> each elemt from collection
+
+powershell escape characters
+------------------------------
+
+`n         
+`t
+
+(get-host).version
+(get-host).version.major
+
+get-process
+
+get-process notepad,chrome
+
+cmdlet1 | cmdlet2
+
+cmdlet | format-list
+cmdlet | format-table
+cmdlet | where-object { script}
+cmdlet | out-host
+
+# - single comment
+<# ...
+....  multiline comment
+#>
+
+Task
+====
+
+1. Display Working version of powershell
+
+	# (get-host).version.major
+
+2. display list of cmdlets available
+	# get-command
+
+3. how to read help doc read-host cmdlet
+	# get-help read-host
+	
+4. how to list the alias
+	# get-alias
+	
+5. How to get list of running notepad process
+	# get-process notepad
+
+6. How to check alias for echo, ps,cp
+	# get-Alias echo,ps,cp
+
+7. Display  message "Welcome"  using echo , write-output, write-host
+
+	<#
+		echo "Welcome"
+		write-host "Welcome"
+		write-output "Welcome
+	#>
+
+
+--------------------------------------------------------------
+
+how to get list of all alias for particular cmdlet?
+
+get-Alias | where-object {$_.Definition -eq "Copy-Item" }
+
+
+get-Alias | where-object {$_.Definition -eq "Copy-Item" } | select-object NAme
+
+
+get-Alias | where-object {$_.Definition -eq "Copy-Item" } | select Name
+
+------------------------------------------------------------------------------
+
+Execution policy
+
+Restricted
+Unrestricted
+RemoteSigned  - execute remote file only signed by authorized third party
+              - execute local file 
+AllSigned  - 
+
+
+Get-ExecutionPolicy  ---> 
+Set-Executionpolicy ----> Administrator 
+
+
+Without changing execution policy
+--------------------------------
+Bypass
+
+start-process powershell -ArgumentList ' -executionpolicy bypass -file C:\Uers\Admin\p1.ps1"'
+
+
+powershell -executionpolicy bypass -file <filename>
+
+--------------------------------------------------------------------------
+newfile/directory
+
+new-item -path filename -ItemType file   # new file
+new-item -path directoryName -ItemType directory  # new directory 
+
+  is same as 
+
+ mkdir directoryName
+
+---------------------------------------------------------------------------------
+
+commandline argument
+--------------------
+
+Param - keyword
+
+Named Arg
+---------
+powershell ./p1.ps1 data1 data2 data3
+
+filename:p1.ps1
+---------------
+param (
+[string] $name
+[string] $dept
+)
+
+write-host "Hello , $name ! Welcome to our $dept"
+
+$no=12   # variable
+
+
+#################################################################
+
+powershell -file ./p1.ps1 -name Vishnu -Age 20   
+
+
+###################################################################
+
+
+positional Arg
+--------------
+
+filename:p1.ps1
+--------------
+
+param(
+[Parameter(Position=0)]
+[string] $name 
+
+[Parameter(Position=1)]
+[string] $dept
+
+)
+
+powershell .\p1.ps1  "Vishnu" 
+
+
+===============================================================
+
+
+Param(
+
+ [Parameter(Mandatory=$true) [int] DateOfBirth
+)
+
+
+Param(
+[ValidateSet(1,18)]
+[int] $Age
+)
+
+Param(
+[ValidateSet("Start","Stop","Restart")
+)
+[string] $Action
+======================================================================================
+
+
+Variable
+--------
+
+namespace - hold a data
+                    |---- value /command/command-result/cmdlet/cmdlet-result
+
+
+syntax:-
+--------
+
+$variable = value 
+
+dynamic type script language
+
+$var=100  -> $var|100|0x1223
+                      .......
+
+$var--> 100
+
+$var=cmd   
+(or)
+$var=$(cmd)             $(get-host).version.major
+
+$var=cmdlet
+(or)
+$var=$(cmdlet)    # recommended
+-------------------------------------------------------------
+Task
+----
+1.How to create a user defined var
+#       $variable=value
+
+2.Create a script file .
+using write-host or echo or write-output to display details
+
+login name   #  whoami
+
+$name= $(whoami)
+write-host "Login Name : $name"
+
+powershell version  # (get-host).version
+current working directory  # get-location
+date(MM/DD/YYYY)  # (get-date -UFormat %m-%d-%y)
+
+------------------------------------------------------------------------
+
+
+Task
+====
+
+Using  write-host (or) echo alias(or) write-output , - display following details
+hostname
+total no. of running process
+
+Note:- hostname --->cmd
+        (get-process).length
+       
+-----------------------------------------------------------------------------
+
+
+
+Keyboard -------------------------------Script  ---------------------------->Monitor
+
+                 read-host                       Write-Host
+						  Write-Output
+						  echo 
+
+$var=read-host "Prompt message"
+|     ---------   ------------
+|
+|      |            |
+str   STDIN        STDOUT
+
+
+
+$var=value
+
+
+$var= [data-type] value 
+
+$v=[int] "45"     ==> int
+
+$var.gettype()   -> type
+
+##############################################################################
+(base) PS C:\Users\theeba\PS> whoami
+desktop-0ohv0kd\theeba
+(base) PS C:\Users\theeba\PS> hostname
+DESKTOP-0OHV0KD
+(base) PS C:\Users\theeba\PS> pwd
+
+Path
+----
+C:\Users\theeba\PS
+
+
+(base) PS C:\Users\theeba\PS> get-alias pwd
+
+CommandType     Name                                               Version    Source
+-----------     ----                                               -------    ------
+Alias           pwd -> Get-Location
+
+
+(base) PS C:\Users\theeba\PS>
+(base) PS C:\Users\theeba\PS> $v=whoami
+(base) PS C:\Users\theeba\PS> $b=hostname
+(base) PS C:\Users\theeba\PS>
+(base) PS C:\Users\theeba\PS>
+(base) PS C:\Users\theeba\PS> $v=12
+(base) PS C:\Users\theeba\PS> $v.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Int32                                    System.ValueType
+
+
+(base) PS C:\Users\theeba\PS> $v="Data"
+(base) PS C:\Users\theeba\PS> $v.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     String                                   System.Object
+
+
+(base) PS C:\Users\theeba\PS> $cost=12.333
+(base) PS C:\Users\theeba\PS> $cost.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Double                                   System.ValueType
+
+
+(base) PS C:\Users\theeba\PS> $v="45"
+(base) PS C:\Users\theeba\PS> $var=[int] $v
+(base) PS C:\Users\theeba\PS> $var
+45
+(base) PS C:\Users\theeba\PS> $var.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Int32                                    System.ValueType
+
+
+(base) PS C:\Users\theeba\PS> $v.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     String                                   System.Object
+
+
+(base) PS C:\Users\theeba\PS> $v= [Double] "4.5555"
+(base) PS C:\Users\theeba\PS> $v.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Double                                   System.ValueType
+
+
+(base) PS C:\Users\theeba\PS> $var= read-host "Enter Your Name"
+Enter Your Name: Hari
+(base) PS C:\Users\theeba\PS> $var
+Hari
+(base) PS C:\Users\theeba\PS> $var.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     String                                   System.Object
+
+
+(base) PS C:\Users\theeba\PS> $var= read-host "Enter Your No"
+Enter Your No: 12
+(base) PS C:\Users\theeba\PS> $var.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     String                                   System.Object
+
+
+(base) PS C:\Users\theeba\PS> $c= read-host "Enter Your Cost"
+Enter Your Cost: 1200
+(base) PS C:\Users\theeba\PS> $total=[int]$c
+(base) PS C:\Users\theeba\PS>
+(base) PS C:\Users\theeba\PS> $c.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     String                                   System.Object
+
+
+(base) PS C:\Users\theeba\PS> $c.gettype().name
+String
+(base) PS C:\Users\theeba\PS> $v.gettype().name
+Double
+
+#########################################################################################
+
+Task
+-----
+
+Write a powershell script
+
+read N value - int type
+read M value - double type
+read X value - string type
+
+display input value and its type
+
+#########################################################################################
+
+
+UDV - by default local scope
+
+Bult-In Variable - by default global scope
+
+
+To convert UDV to shell var
+--------------------------
+$PSHOME/profile.ps1      ---> open as administrator
+
+$port=6565
+
+save and exit
+
+open new terminal
+test echo $port
+
+--------------------------------------------------------------------------------------
+$?  --- contains the exit status of last operation
+$_   -- contains element in the pipeline
+$$   -- contains last token in last operation
+$^   -- "        first token    "   "
+
+--------------------------------------------------------------------------------------
+(base) PS C:\Users\theeba\PS> $pid
+15248
+(base) PS C:\Users\theeba\PS>
+(base) PS C:\Users\theeba\PS> $true
+True
+(base) PS C:\Users\theeba\PS> $false
+False
+(base) PS C:\Users\theeba\PS> $null
+(base) PS C:\Users\theeba\PS> $OFS
+(base) PS C:\Users\theeba\PS> $PSVersionTable
+
+Name                           Value
+----                           -----
+PSVersion                      5.1.22621.4391
+PSEdition                      Desktop
+PSCompatibleVersions           {1.0, 2.0, 3.0, 4.0...}
+BuildVersion                   10.0.22621.4391
+CLRVersion                     4.0.30319.42000
+WSManStackVersion              3.0
+PSRemotingProtocolVersion      2.3
+SerializationVersion           1.1.0.1
+
+
+(base) PS C:\Users\theeba\PS> (get-host).version
+
+Major  Minor  Build  Revision
+-----  -----  -----  --------
+5      1      22621  4391
+
+
+(base) PS C:\Users\theeba\PS> $PSVersionTable.PSVersion
+
+Major  Minor  Build  Revision
+-----  -----  -----  --------
+5      1      22621  4391
+
+#########################################################################################
+Operators
+---------
+
+Arithmetic ---->  + - * / %
+
+(input types: int/double)   ----> int/Double
+
+String
+------
++ -----> "str1"+"string2" ---> string
+
+"10"+20 ---> 1020
+
+Relational operators
+---------------------
+
+-eq -ne -lt -gt -ge -le   ===> Boolean value (true/false)
+-------
+|
+str
+
+-ceq  
+
+"A-Za-z0-9space"
+
+any expression ---> True/false
+any cmdlet/alias ----> True/False
+
+----> testing/ evaluating
+-----> using conditional statement
+
+if statement
+-----------
+1) If only
+2) if.. else 
+3) if..elseif...else
+
+Syntax:-
+--------
+
+if(condition){
+	True only
+}
+
+syntax:-
+-------
+if(condition){
+	True only
+}
+else{
+	False only
+}
+
+
+Logical operator
+----------------
+Logical  and or not
+
+---> In single conditional stmt, test more than 1 condition
+
+Logical and && and
+------------------
+  -and ==> in powershell
+
+Logical or ||  or
+------------------
+  -or ===> in powershell
+
+Logical not  !
+----------------
+  -not ===> in powershell
+
+
+LOgical -and
+-------------
+
+c1	c2	Result
+True	True	True
+True	False	False
+False	True	False
+False	False	False
+
+
+LOgical -or
+-------------
+
+c1	c2	Result
+True	True	True
+True	False	True
+False	True	True
+False	False	False
+
+
+port---> 1000 t0 2000
+
+port -lt 2000 -and port -gt 1000
+
+-----------------------------------------------------------
+
+
+Task
+====
+
+Write a powershell script
+
+read a login name from <STDIN>
+  
+test login name is "root"     ----- condition(1)
+	|
+	read a shell name from <STDIN>
+	test sh (or) bash (or) PSH     // anyone matched    ---- condition(2)
+			|----> display login name and shell
+	
+
+######################################################################################
+(base) PS C:\Users\theeba\PS> ([double]$s+100).gettype().name
+Double
+(base) PS C:\Users\theeba\PS> "10"+20
+1020
+(base) PS C:\Users\theeba\PS> $c1="HARI"
+(base) PS C:\Users\theeba\PS> $c2="hari
+>> "
+(base) PS C:\Users\theeba\PS> $c1 -eq $c2
+False
+(base) PS C:\Users\theeba\PS> $c1="hari"
+(base) PS C:\Users\theeba\PS> $c1 -eq $c2
+False
+(base) PS C:\Users\theeba\PS> $c1 -ceq $c2
+False
+(base) PS C:\Users\theeba\PS> "Hari" -eq "hari"
+True
+(base) PS C:\Users\theeba\PS> "Hari" -ceq "hari"
+False
+(base) PS C:\Users\theeba\PS> $count=45
+(base) PS C:\Users\theeba\PS> $count -gt 40
+True
+(base) PS C:\Users\theeba\PS> (get-process).length
+268
+(base) PS C:\Users\theeba\PS> (get-process).length -gt $count
+True
+(base) PS C:\Users\theeba\PS> $name="root"
+(base) PS C:\Users\theeba\PS> $nae -eq "root"
+False
+(base) PS C:\Users\theeba\PS> $name -eq "root"
+True
+(base) PS C:\Users\theeba\PS> $name -eq "ROOT"
+True
+(base) PS C:\Users\theeba\PS> $name -ceq "ROOT"
+False
+(base) PS C:\Users\theeba\PS> $name -ieq "ROOT"
+True
+(base) PS C:\Users\theeba\PS> $n=5
+(base) PS C:\Users\theeba\PS> $n +1
+6
+(base) PS C:\Users\theeba\PS> $n=$n+1
+(base) PS C:\Users\theeba\PS> $n
+6
+(base) PS C:\Users\theeba\PS> $n++
+(base) PS C:\Users\theeba\PS> $n
+7
+(base) PS C:\Users\theeba\PS> ++$n
+(base) PS C:\Users\theeba\PS> $n
+8
+(base) PS C:\Users\theeba\PS> $n--
+(base) PS C:\Users\theeba\PS> --$n
+(base) PS C:\Users\theeba\PS> $n
+6
+(base) PS C:\Users\theeba\PS> echo "hello" | Where-Object { $_ -eq "hello"}
+hello
+(base) PS C:\Users\theeba\PS>
+(base) PS C:\Users\theeba\PS> if("hello" -eq "hello"){
+>> echo " hello"
+>> }
+ hello
+(base) PS C:\Users\theeba\PS> $var="hello"
+(base) PS C:\Users\theeba\PS>
+(base) PS C:\Users\theeba\PS> if( $var -eq "hello"){
+>> echo " hello"
+>> }
+ hello
+(base) PS C:\Users\theeba\PS> $var="sh"
+(base) PS C:\Users\theeba\PS> $var -eq "bash" -or $var -eq "sh"
+########################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
