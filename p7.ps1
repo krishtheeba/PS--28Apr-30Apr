@@ -1,29 +1,23 @@
 <#
-Task
-====
 
-Write a powershell script
+Q3. Write a powershell script - display list of log files under current directory in below format.
 
-read a hostname from <stdin>
-hostname is oracle
-		|
-		read a port number from <stdin>
-		Test range of port is 501-599
-			|
-			display hostname & portno
+1.p1.log
+2.p2.log
+3.p3.log
+..
+..
+10.p10.log
+
+Total no.of log files:10
 
 #>
 
-
-$h= read-host "Enter the Hostname"
-if($h -eq "oracle"){
-	[int]$po=read-host "Enter the Portnumber"
-	if($po -gt 500 -and $po -lt 600){
-		write-host "Hostname : $h"
-		write-host "Post number : $po"
-	}else{
-		write-host "Invalid Port Number"
-	}
-}else{
-	write-host "Invalid Hostname"
+$c=0
+foreach($v in Get-ChildItem *.log){
+	
+	$c++
+	Write-Host "$c . $v"
 }
+
+echo "------------`nTotal No. of Log files : $c`n--------------"

@@ -1,22 +1,14 @@
-<#  .....Multiline comment
 
-Task
-====
+$fname=Read-Host "Enter File Name"
 
-Using  write-host (or) echo alias(or) write-output , - display following details
-hostname
-total no. of running process
 
-Note:- hostname --->cmd
-        (get-process).length
+if (Test-Path -path $fname){
+	echo "File exist"
+	exit  # exit from script
+}
 
-#>
-
-$v=$(hostname)
-
-echo "My System Hostname : $v"
-
-$c= (Get-Process).length      # $c=$(Get-Process).length
-
-echo " Total No. Of Process : $c"
-
+for($i=0; $i -lt 5; $i++){
+	$var= Read-Host "Enter Some Text"
+	add-content $fname $var    # append- cmdlet way
+	# echo $var >> $fname      # append - redirection symbol way
+}

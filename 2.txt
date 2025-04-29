@@ -1,0 +1,1101 @@
+conditional statement
+---------------------
+- only once based on conditn
+
+if only
+if..else
+
+if..elseif..else
+
+
+switch statement
+-----------------
+
+switch(condition){
+<condition1> {stmt1}
+<condition2> {stmt2>
+...
+}
+
+PIN=1234
+
+
+pin  Vs PIN   -> condition --> 
+
+
+Looping statement
+------------------
+- execute stmts more than once.
+
+|----------1. conditional style looping ---> True;False  (for, while)
+|----------2. collection style looping ----> (ex:Array,Hash,cmdlet result)
+				more than 1 value ---> (foreach)
+
+syntax:-
+
+for(initialization; Condition; increment/decrement){
+	code block
+}
+
+while
+-----
+initialization
+while(condition){
+	codeblock
+	increment/decrement   $c=$c+1   (or) $c++ 
+}
+
+do{
+...
+}while(condition)
+
+--------------------------------------------------------------------------------
+
+foreach($variable in collection){
+	....
+}
+
+foreach($var in <Array/Hash/CMDLET>){
+	...
+}
+
+break - looping statement --> exit from loop
+continue - looping statement -> next iteration
+################################################################################
+
+(base) PS C:\Users\theeba\PS\day2> $c=1
+(base) PS C:\Users\theeba\PS\day2> while($c -le 5){
+>> echo "Attempt $c"
+>> $c++
+>> }
+Attempt 1
+Attempt 2
+Attempt 3
+Attempt 4
+Attempt 5
+(base) PS C:\Users\theeba\PS\day2> for ($c=1; $c -le 5; $c++){
+>> echo "Attempt $c"
+>> }
+Attempt 1
+Attempt 2
+Attempt 3
+Attempt 4
+Attempt 5
+(base) PS C:\Users\theeba\PS\day2> for ($c=1; $c -le 5; $c++){
+>> if ( $c -eq 3){ break} else{echo "Attempt $c"}
+>> }
+Attempt 1
+Attempt 2
+(base) PS C:\Users\theeba\PS\day2> # break- exit from loop
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> for ($c=1; $c -le 5; $c++){
+>> if ( $c -eq 3){ continue; echo "Remaining Code"} else{echo "Attempt $c"}
+>> }
+Attempt 1
+Attempt 2
+Attempt 4
+Attempt 5
+(base) PS C:\Users\theeba\PS\day2> for ($c=1; $c -le 5; $c++){
+>> if ( $c -eq 3){ continue; echo "Remaining Code"} else{echo "Attempt $c"}
+>> }
+
+###################################################################################
+
+
+task
+=====
+1.Write a powerscript
+
+Initialize variable $pin=1234
+
+read a input pin from pin from <STDIN>
+
+compare input pin with existing $pin
+
+-----------------------------------------------
+task 
+2. Modify above with 3 attempts
+
+max attempts is 3
+
+Note :- while , for
+-----------------------------------------------
+
+$variable=value
+
+[datatype]$variable=Value
+
+cmdlet
+------
+
+set-Variable -> to set variable (or) $var=value
+
+get-Variable -> to get list of all variable
+
+clear-variable -> clear value in variable
+
+remove-variable -> delete
+
+
+cmdlet| where-object {$_ -eq ..}  ----------> if ($var -eq ...){
+						}
+
+set-variable -name "Variable_name" -value "Value" --> $variable_Name=Value
+
+$port=1234
+
+$port | 1234|0x123 -- address
+|	 |	
+variable value
+
+
+clear-variable -name port  ---> $port | |0x123
+remove-variable -name port --->          |-----delete address
+
+
+if(){
+......
+....
+remove-variable -name "variable"
+}
+
+function  functionName(){
+	...
+	....
+	...
+	remove-variable -name "variable"
+}
+
+file:-f1.ps1
+-------------
+$c=222
+
+...
+..write-host $c
+remove-variable -name "c"
+
+======================================================================================= 
+
+
+-in     notin
+
+-contains   -notcontains
+
+-like  -notlike
+
+syntax:- Collection -contains <input>
+
+syntax:- <input> -in Collection
+
+syntax:- <input> -like <wildcard Based Pattern>
+* more than 1 character
+? match 1 single character
+
+#########################################################################################
+
+(base) PS C:\Users\theeba\PS\day2> "p1.log","p2.log","p3.log" -contains "p10.log"
+False
+(base) PS C:\Users\theeba\PS\day2> "p1.log","p2.log","p3.log" -notcontains "p10.log"
+True
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> if("p1.log","p2.log","p3.log" -notcontains "p10.log"){
+>> echo "File Not exist"
+>> }
+File Not exist
+(base) PS C:\Users\theeba\PS\day2> if("p1.log","p2.log","p3.log" -contains "p10.log"){
+>> echo "File exist"
+>> }
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> 1 -in 1,2,3
+True
+(base) PS C:\Users\theeba\PS\day2> "root:x:bin:bash".split(":")
+root
+x
+bin
+bash
+(base) PS C:\Users\theeba\PS\day2> "root:x:bin:bash".split(":").length
+4
+(base) PS C:\Users\theeba\PS\day2> "root:x:bin:bash".split(":") -contains "x"
+True
+(base) PS C:\Users\theeba\PS\day2> #mutiple initialization
+(base) PS C:\Users\theeba\PS\day2> "root:x:bin:bash".split(":")
+root
+x
+bin
+bash
+(base) PS C:\Users\theeba\PS\day2> $v1,$v2,$v3,$v4="root:x:bin:bash".split(":")
+(base) PS C:\Users\theeba\PS\day2> $v
+(base) PS C:\Users\theeba\PS\day2> $v1
+root
+(base) PS C:\Users\theeba\PS\day2> $v4
+bash
+(base) PS C:\Users\theeba\PS\day2> $v2
+x
+(base) PS C:\Users\theeba\PS\day2> $v3
+bin
+(base) PS C:\Users\theeba\PS\day2> $v1,$v2=10,20,30
+(base) PS C:\Users\theeba\PS\day2> $v1
+10
+(base) PS C:\Users\theeba\PS\day2> $v2
+20
+30
+(base) PS C:\Users\theeba\PS\day2> $v1,$v2=10,20,30,"data"
+(base) PS C:\Users\theeba\PS\day2> $v1
+10
+(base) PS C:\Users\theeba\PS\day2> $v2
+20
+30
+data
+(base) PS C:\Users\theeba\PS\day2> $S="Scripting Language"
+(base) PS C:\Users\theeba\PS\day2> if($S -like "Scrip*"){
+>> write-host "Pattern Matched"
+>> }
+Pattern Matched
+(base) PS C:\Users\theeba\PS\day2> if($S -notlike "S?r*"){
+>> write-host "Pattern Matched"
+>> }else{ write-host "Pattern Not Matched"}
+Pattern Not Matched
+(base) PS C:\Users\theeba\PS\day2> if($S -like "S?r*"){
+>> write-host "Pattern Matched"
+>> }else{ write-host "Pattern Not Matched"}
+Pattern Matched
+(base) PS C:\Users\theeba\PS\day2>
+
+#########################################################################################
+
+File Handling
+-------------
+
+
+keyboard --------------------------Script ------------------------ Monitor
+<STDIN>		                   |				<STDOUT>
+		read-host	   |		write-host
+				   |		echo
+				   |		write-output
+                                   |
+				File (Storage)
+
+New-Item Folder/ reg.file   -  -ItemType File
+	|
+	-ItemType directory
+
+
+Set-Content - Add/ write data to file
+
+Get-Content - read content existing file
+
+Add-Content - Append operation
+
+Clear-Content - Erase content of file
+
+
+redirection symbols
+-------------------
+>  - Create/ Write 
+>> - Create/ Append
+      |
+      if file not exist
+
+New-Item "file path" -ItemType File     (optional)
+New-Item "directory path" -ItemType directory    
+
+Set-Content "File path" "content"    # write operation- > if file already exist, overwrite content
+
+Get-Content "File Path"
+
+Add-Content "File Path" "Updated _content"       >>
+
+Remove-Item "File path"
+Rename-Item "FIle path"
+
+Copy-Item "OLDNAME" "NEWNAME"
+
+f1.ps1----> /PS/f1.ps1 
+
+Copy-Item "OLDNAME" "NEWNAME" -Force   - if destination file already exist, copy operation fails. -force parameter to overwrite existing destination
+
+Remove-Item "directory path" -recurse
+			
+
+ConvertTo-Html   -> cmdlet|ConvertTo-Html -property--------------> test.html
+
+Test-Path -> True/False
+
+Test-Path -Path "File-PAth"   ---> True/False 
+
+
+
+
+keyboard --------------------------Script ------------------------ Monitor
+<STDIN>		                   |				<STDOUT>
+		read-host	   |		write-host
+				   |		echo
+				   |		write-output
+                                   |
+				File (Storage)
+
+
+1. Reading data from <STDIN>---Script ---> Write data to File   # no <STDOUT>
+   read-host					cmdlet   (or)  >  >>
+
+2. Reading data from <FILE> ---Script----> Display Monitor # no <STDIN>
+     cmdlet					Write-Host, echo,Write-Output
+
+
+3. Reading data from <ONEFILE>---> Script----> Write data to <ANOTHERFILE>   # no 										<STDOUT><STDIN>
+      get-content					set-content/ add-content
+
+							(or)  >  >>
+
+1. Reading data from <STDIN>---Script ---> Write data to File
+-------------------------------------------------------------
+
+$var=read-host "Enter some text"
+set-content resultfile $var
+
+vs
+
+for($i=0;$i -lt 5; $i++){
+{
+	$var=read-host "Enter some text"
+	set-content resultfile $var          # overwrite existing content
+}
+  
+||
+
+for($i=0;$i -lt 5; $i++){
+{
+	$var=read-host "Enter some text"
+	add-content resultfile $var          # updates with existing content  - append
+}
+  
+for($i=0;$i -lt 5; $i++){
+{
+	$var=read-host "Enter some text"
+	echo $var >> resultfile           # updates with existing content
+}
+  
+
+for($i=0;$i -lt 5; $i++){
+{
+	$var=read-host "Enter some text"
+	echo $var > resultfile           # overwrite with existing content
+}
+  
+--------------------------------------------------------------------------------------------------
+
+2. Reading data from <FILE> ---Script----> Display Monitor # no <STDIN>
+----------------------------------------------------------------------  
+   Get-Content					Write-Host, echo,Write-Output
+
+
+$var= Get-Content $filename
+echo $var
+
+(or)
+
+Get-Content filename   (or)  cat filename
+
+
+foreach ($v in Get-Content "C:\Users\User\rt.log"){
+	....
+}
+
+
+---------------------
+
+$c=0
+foreach($v in Get-Content ".\sample.txt"){
+        $c++
+        if($c -eq 3){
+                continue
+        }
+        else{
+                echo $v
+        }
+}
+
+-------------------------------------------------------------------------------------------------
+
+(base) PS C:\Users\theeba\PS\day2> Set-content A.log -value "Test data"
+(base) PS C:\Users\theeba\PS\day2> Set-content A.log -value "Test data1`nTest data2`nTest data3"
+(base) PS C:\Users\theeba\PS\day2> Set-content A.log -value "Test data1"
+(base) PS C:\Users\theeba\PS\day2> Set-content A.log -value "Test data1
+>> jkgwdkjgd
+>> fdsfdsf
+>> dfdfd
+>> ddfd
+>> ddf
+>> adadf
+>> ddafd
+>> -----------"
+(base) PS C:\Users\theeba\PS\day2> get-content A.log
+Test data1
+jkgwdkjgd
+fdsfdsf
+dfdfd
+ddfd
+ddf
+adadf
+ddafd
+-----------
+(base) PS C:\Users\theeba\PS\day2> test-path -path .\emp.csv
+False
+(base) PS C:\Users\theeba\PS\day2> test-path -path ..\..\emp.csv
+True
+(base) PS C:\Users\theeba\PS\day2> test-path -path "*.ps1"
+True
+(base) PS C:\Users\theeba\PS\day2> test-path -path "*.txt"
+True
+(base) PS C:\Users\theeba\PS\day2> test-path -path "..\..\*.java"
+False
+(base) PS C:\Users\theeba\PS\day2> test-path -path "..\..\*.txt"
+True
+(base) PS C:\Users\theeba\PS\day2> resolve-path .
+
+Path
+----
+C:\Users\theeba\PS\day2
+
+
+(base) PS C:\Users\theeba\PS\day2> resolve-path C:\win*
+
+Path
+----
+C:\Windows
+
+
+(base) PS C:\Users\theeba\PS\day2> resolve-path C:\win*, .,..
+
+Path
+----
+C:\Windows
+C:\Users\theeba\PS\day2
+C:\Users\theeba\PS
+
+
+(base) PS C:\Users\theeba\PS\day2> resolve-path C:\win*, .,..,C:\use*\*
+
+Path
+----
+C:\Windows
+C:\Users\theeba\PS\day2
+C:\Users\theeba\PS
+C:\Users\Public
+C:\Users\theeba
+
+(base) PS C:\Users\theeba\PS\day2> Get-ChildItem | where-object {$_.length -gt 100}
+
+
+    Directory: C:\Users\theeba\PS\day2
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        29-04-2025     09:44            148 p1.ps1
+-a----        29-04-2025     10:31            639 p2.ps1
+-a----        29-04-2025     12:07            304 p3.ps1
+-a----        29-04-2025     12:14           1653 p4.ps1
+-a----        29-04-2025     12:19            127 p5.ps1
+-a----        29-04-2025     12:34            117 p6.ps1
+
+
+(base) PS C:\Users\theeba\PS\day2> Get-ChildItem | where-object {$_.length -gt 100 -and $_.length -lt 200}
+
+
+    Directory: C:\Users\theeba\PS\day2
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        29-04-2025     09:44            148 p1.ps1
+-a----        29-04-2025     12:19            127 p5.ps1
+-a----        29-04-2025     12:34            117 p6.ps1
+
+
+(base) PS C:\Users\theeba\PS\day2> Get-ChildItem | where-object {$_.length -gt 100 -and $_.length -lt 200} > r4.log
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> get-content r4.log
+
+
+    Directory: C:\Users\theeba\PS\day2
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        29-04-2025     09:44            148 p1.ps1
+-a----        29-04-2025     12:19            127 p5.ps1
+-a----        29-04-2025     12:34            117 p6.ps1
+
+(base) PS C:\Users\theeba\PS\day2> get-service|where-object{$_.Status -eq "Running"}
+(base) PS C:\Users\theeba\PS\day2> get-service|where-object{$_.Status -eq "Running"} > r.log
+(base) PS C:\Users\theeba\PS\day2> set-content rr.log get-service|where-object{$_.Status -eq "Running"}
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> cat rr.log   # get-content rr.log
+get-service
+(base) PS C:\Users\theeba\PS\day2> set-content rr.log $(get-service|where-object{$_.Status -eq "Running"} )
+
+
+#################################################################################################
+
+
+Task
+----
+
+Q1. Using where-Object , Modify the below conditional statement 
+
+	foreach ($v in Get-ChildItem){
+		if($v.length -gt 100 -and $v.length -lt 200){
+			echo $v
+		}
+	}
+
+Get-ChildItem | Where-Object {$_.length -gt 100 -and $_.length -lt 200}
+------------------------------------------------------------------------------------------
+Q2. Write a powershell script - list out chrome process which is consuming CPU utilization 15 and above
+
+get-process|where-object{$_.name -eq "chrome" -and $_.CPU -gt 15 }
+
+--------------------------------------------------------------------------------------------
+
+Q3. Write a powershell script - display list of log files under current directory in below format.
+
+1.p1.log
+2.p2.log
+3.p3.log
+..
+..
+10.p10.log
+
+Total no.of log files:10
+
+-------------------------------------------------------------------------------------------------
+
+Q4. Write a powershell script - Display menu-driven program
+
+
+#######################SYSTEM INFO#########################
+#							  #
+#	1. List top 10 process 				  #
+#       2. List Running Service				  #
+#       3. Total no. of Alias				  #
+#       4. Display process details                        #
+#       5. Display Login Path and Login Name              #
+#	6. Exit						  #
+###########################################################
+
+Enter your choice:__________
+
+-----------------------------------------------------------------------------------------------
+
+Q5.
+File : Dept.txt
+---------------
+admin
+sales
+prod
+Hr
+QA
+DBA
+CRM
+---------------
+
+Write a powershell script- using filehandling, read the dept.txt filr
+Ignore following departs (sales, Hr,QA)
+Display remaining names to monitor.
+
+================================================================================================
+(base) PS C:\Users\theeba\PS\day2> get-process| sort-object -property WS
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+      0       0       60          8                 0   0 Idle
+    178      12     9644         24       0.91  13888   1 msedgewebview2
+    506      37   184896         24      59.09  27328   1 msedgewebview2
+   6225       0       56        156                 4   0 System
+     58       4     1168       1152               684   0 smss
+    361      21    14212       1584       4.38  16780   1 msedgewebview2
+    155      11     2376       1664       0.00  18852   1 msedgewebview2
+   1453      73   147968       1800       0.94  22800   1 SystemSettings
+    219      15     8204       2100       0.06  13136   1 msedgewebview2
+     42       7     1976       2936              1384   0 fontdrvhost
+    200      12     2216       3196       0.59  11520   1 LocationNotificationWindows
+
+(base) PS C:\Users\theeba\PS\day2> get-process| sort-object -property WS | select-object -Last 10
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+   1300      96   283640     182728              4688   0 mc-fw-host
+    520      39   174804     201180      18.59  24312   1 chrome
+   3212      99   353108     207672              2400   1 dwm
+   1512      44    59380     224364              4896   0 WavesSysSvc64
+   1974      72   187468     236644     230.66  13688   1 chrome
+   1294     265   285992     240548             23076   0 SupportAssistAgent
+   3391     213   232280     245216              8576   0 Dell.TechHub.Instrumentation.SubAgent
+   7371     199   383484     305580     201.22   9740   1 explorer
+   2545     172   782240     401464   1,943.13  27932   1 Zoom
+      0       0     2860     917812              3104   0 Memory Compression
+
+(base) PS C:\Users\theeba\PS\day2> get-process| sort-object -property WS | select-object -First 10
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+      0       0       60          8                 0   0 Idle
+    506      37   184896         24      59.09  27328   1 msedgewebview2
+    178      12     9644         24       0.91  13888   1 msedgewebview2
+   6214       0       56        156                 4   0 System
+     58       4     1168       1152               684   0 smss
+    361      21    14212       1584       4.38  16780   1 msedgewebview2
+    155      11     2376       1664       0.00  18852   1 msedgewebview2
+   1453      73   147968       1800       0.94  22800   1 SystemSettings
+    219      15     8204       2100       0.06  13136   1 msedgewebview2
+    200      12     2216       2800       0.59  11520   1 LocationNotificationWindows
+
+
+##############################################################################################
+
+Arrays
+======
+
+cmdlet or command --->  more than 1 value
+get-childItem ; get-process; Get-Alias; get-Content <filename>
+
+Variable--> hold more than 1 value
+
+|--------index  [int]
+|-------- Collection of ordered elements ( different types)
+
+$variable=value
+
+$a=10
+$b=12.22
+$c="data"
+---------------------// Single
+
+
+GET-XYZ  
+|-----------// more than 1 value --> Array
+
+$v=GET-XYZ   --> Array
+is same as
+$v=@(GET-XYZ)   --> Array
+
+syntax:-
+
+$ArrayName= @(list of elemnts)
+
+ $port =@(10,20.333,"data")
+          |    |     |
+	  0    1     2    ==> Index
+        -3     -2      -1  ==> Negative Index
+
+$a[0] -eq $a[-3]   True
+
+--------------------------------------------------
+ $port =@(10,20.333,"data")
+is same as
+
+ $port =(10,20.333,"data")
+
+is same as 
+
+ $port =10,20.333,"data"
+
+
+---------------------------------------------------
+
+--> Array are Mutable
+
+$array_name[index]="Updated_Value"
+
+---------------------------------------------------
+
+$var=""    #empty str
+
+$var=@()    # empty array
+
+==============================================================================
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> "root:bin:bash".split(":")
+root
+bin
+bash
+(base) PS C:\Users\theeba\PS\day2> $v1,$v2,$v3="root:bin:bash".split(":")
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> $v1,$v2=10,20,30,40
+(base) PS C:\Users\theeba\PS\day2> $v1
+10
+(base) PS C:\Users\theeba\PS\day2> $v2
+20
+30
+40
+(base) PS C:\Users\theeba\PS\day2> $v2.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Object[]                                 System.Array
+
+(base) PS C:\Users\theeba\PS\day2> $a.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Object[]                                 System.Array
+
+
+(base) PS C:\Users\theeba\PS\day2> $a.gettype().name
+Object[]
+(base) PS C:\Users\theeba\PS\day2> $a[0].gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Int32                                    System.ValueType
+
+
+(base) PS C:\Users\theeba\PS\day2> $a[1].gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Double                                   System.ValueType
+
+
+(base) PS C:\Users\theeba\PS\day2> $a[2].gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     String                                   System.Object
+
+
+(base) PS C:\Users\theeba\PS\day2> $a
+10
+2.333
+DATA
+(base) PS C:\Users\theeba\PS\day2> $a[1]
+2.333
+(base) PS C:\Users\theeba\PS\day2> $a[1]="Test.log"
+(base) PS C:\Users\theeba\PS\day2> $a
+10
+Test.log
+DATA
+(base) PS C:\Users\theeba\PS\day2> $a[1]
+Test.log
+(base) PS C:\Users\theeba\PS\day2> $b=@()
+(base) PS C:\Users\theeba\PS\day2> $b
+(base) PS C:\Users\theeba\PS\day2> $b=$b+"abc"
+(base) PS C:\Users\theeba\PS\day2> $b
+abc
+(base) PS C:\Users\theeba\PS\day2> $b=$b+1223
+(base) PS C:\Users\theeba\PS\day2> $b
+abc
+1223
+(base) PS C:\Users\theeba\PS\day2> $b=$b+12.33
+(base) PS C:\Users\theeba\PS\day2> $b
+abc
+1223
+12.33
+(base) PS C:\Users\theeba\PS\day2> foreach($v in $b){
+>> echo $v
+>> }
+abc
+1223
+12.33
+(base) PS C:\Users\theeba\PS\day2> $b.length
+3
+(base) PS C:\Users\theeba\PS\day2> $b.count
+3
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> Set-Content Inventory.txt "
+>> ITEMCODE:SALES
+>> A102:12,33,44,55
+>> B329:45,66,77,12
+>> C423:1,4,2,6,7
+>> A131:55,2,3,10
+>> "
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> Get-Content Inventory.txt
+
+ITEMCODE:SALES
+A102:12,33,44,55
+B329:45,66,77,12
+C423:1,4,2,6,7
+A131:55,2,3,10
+
+(base) PS C:\Users\theeba\PS\day2> $f=Get-content ".\Inventory.txt"
+(base) PS C:\Users\theeba\PS\day2> $f.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Object[]                                 System.Array
+
+
+(base) PS C:\Users\theeba\PS\day2> $f[0]
+
+(base) PS C:\Users\theeba\PS\day2> $f[1]
+ITEMCODE:SALES
+(base) PS C:\Users\theeba\PS\day2> $f[2]
+A102:12,33,44,55
+(base) PS C:\Users\theeba\PS\day2> $f[2].gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     String                                   System.Object
+
+
+(base) PS C:\Users\theeba\PS\day2> Add-Content ".\Inventory.txt" 1212
+(base) PS C:\Users\theeba\PS\day2> Get-Content Inventory.txt
+
+ITEMCODE:SALES
+A102:12,33,44,55
+B329:45,66,77,12
+C423:1,4,2,6,7
+A131:55,2,3,10
+
+1212
+(base) PS C:\Users\theeba\PS\day2> $f[-1]
+
+(base) PS C:\Users\theeba\PS\day2> $f[-2]
+A131:55,2,3,10
+(base) PS C:\Users\theeba\PS\day2> $f=Get-content ".\Inventory.txt"
+(base) PS C:\Users\theeba\PS\day2> $f[-1]
+1212
+(base) PS C:\Users\theeba\PS\day2> $f[-1].gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     String                                   System.Object
+
+########################################################################################
+
+
+
+
+foreach(scriptblock,args)- method in array
+
+vs
+
+foreach($var in collection){
+
+.....				- Loop
+}
+
+
+object.method()
+
+foreach()
+where()
+IndexOf()
+split()
+==================================================================================================
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> $a=@(10,20,30,40)
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> $a.ForEach({$_})
+10
+20
+30
+40
+(base) PS C:\Users\theeba\PS\day2> $a.ForEach({$_+100})
+110
+120
+130
+140
+(base) PS C:\Users\theeba\PS\day2> @("05/27/1998").foreach([datetime])
+
+27 May 1998 00:00:00
+
+
+(base) PS C:\Users\theeba\PS\day2> # object.method
+(base) PS C:\Users\theeba\PS\day2> # $arrayName.foreach()
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> "abc".ToUpper()
+ABC
+(base) PS C:\Users\theeba\PS\day2> "ABC".ToLower()
+abc
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> ("perl","python","java","c").foreach("ToUpper")
+PERL
+PYTHON
+JAVA
+C
+
+(base) PS C:\Users\theeba\PS\day2> foreach($var in ("python","perl","c","java")){
+>> echo $var.ToUpper()
+>> }
+PYTHON
+PERL
+C
+JAVA
+(base) PS C:\Users\theeba\PS\day2> ("perl","python","java","c").foreach("ToUpper")
+PERL
+PYTHON
+JAVA
+C
+(base) PS C:\Users\theeba\PS\day2> $v=@(("perl","python","java","c").foreach("ToUpper"))
+(base) PS C:\Users\theeba\PS\day2> $v
+PERL
+PYTHON
+JAVA
+C
+(base) PS C:\Users\theeba\PS\day2> ("perl","python","java","c").where({$_.length})
+perl
+python
+java
+c
+(base) PS C:\Users\theeba\PS\day2> ("perl","python","java","c").where({$_.length -gt 3})
+perl
+python
+java
+(base) PS C:\Users\theeba\PS\day2> $a
+10
+20
+30
+40
+(base) PS C:\Users\theeba\PS\day2> $a.IndexOf(10)
+0
+(base) PS C:\Users\theeba\PS\day2> $a.IndexOf(20)
+1
+(base) PS C:\Users\theeba\PS\day2> $a=@()
+
+
+(base) PS C:\Users\theeba\PS\day2> $a=$a+10
+(base) PS C:\Users\theeba\PS\day2> $a
+10
+(base) PS C:\Users\theeba\PS\day2> $a=$a+20
+(base) PS C:\Users\theeba\PS\day2> $a
+10
+20
+(base) PS C:\Users\theeba\PS\day2> $a+=10
+(base) PS C:\Users\theeba\PS\day2> $a
+10
+20
+10
+(base) PS C:\Users\theeba\PS\day2> $s="root:x:bin:bash:/bin/bash:0:text"
+(base) PS C:\Users\theeba\PS\day2> $s.gettype().name
+String
+(base) PS C:\Users\theeba\PS\day2> $s.split(":")
+root
+x
+bin
+bash
+/bin/bash
+0
+text
+(base) PS C:\Users\theeba\PS\day2> # single str --> multiple str
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> $s="Running AppInfo 34343 Application Infor"
+(base) PS C:\Users\theeba\PS\day2> $s.split()
+Running
+AppInfo
+34343
+Application
+Infor
+(base) PS C:\Users\theeba\PS\day2> $a=$s.split()
+(base) PS C:\Users\theeba\PS\day2> $a.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     String[]                                 System.Array
+
+
+(base) PS C:\Users\theeba\PS\day2> $a[-1]
+Infor
+
+(base) PS C:\Users\theeba\PS\day2> $a[-2]
+Application
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2>
+(base) PS C:\Users\theeba\PS\day2> $a= "kumar","sales","pune"   # this is array
+(base) PS C:\Users\theeba\PS\day2> $a.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Object[]                                 System.Array
+
+
+(base) PS C:\Users\theeba\PS\day2> $a.split(",")
+kumar
+sales
+pune
+(base) PS C:\Users\theeba\PS\day2> $a.split(",")[0]
+kumar
+(base) PS C:\Users\theeba\PS\day2> $a.split(",")[0][1]
+u
+(base) PS C:\Users\theeba\PS\day2> $a.split(",")[1]
+sales
+(base) PS C:\Users\theeba\PS\day2> $a.split(",")[2]
+pune
+(base) PS C:\Users\theeba\PS\day2> $a.split(",")[-1]
+pune
+
+################################################################################################
+
+Task
+====
+
+Write a powershell script
+
+Given Array:
+
+$emp= @("ram,sales,1000","Kumar,Hr,2000","Hari,Prod,2000")
+
+Display the Emp Name and Working Department to <STDOUT>
+
+Calculate the sum of Cost
+
+Display Total emp cost to <STDOUT>
+
+Expected Result
+---------------
+
+Emp Name : Ram   Working Department :Sales
+Emp Name : Kumar   Working Department :Kumar
+Emp Name : Hari   Working Department :Prod
+---------------------------------------------
+Total Employee's Cost:  5000
+---------------------------------------------
+
+$n,$d,$c="ram,sales,1000".split(",")
+--
+
+
+================================================================================================
+
+Hash
+----
+|---- associated Array (or) Dictionary (or) Map   --->  Hash
+
+Hash----> Collection of Unordered elements - DATA  (Key/Value)
+                       ----------
+                          |---- ["Key"]
+vs
+
+Array ----> Collection of Ordered elements - Data (Single)
+                       -----------
+			  |----[Index]
+
+
+$hash_variable= @{ Key1=Value1 ; Key2=Value2 ; Key3=Value3....KEyn=Valuen}
+
+vs
+
+$Array_variable= @(Value1 , Value2 , Value3 .... ValueN)
+
+=================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

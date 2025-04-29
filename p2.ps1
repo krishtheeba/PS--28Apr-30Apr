@@ -1,36 +1,54 @@
 <#
-Task
-----
-1.How to create a user defined var
-#       $variable=value
+task
+=====
+1.Write a powerscript
 
-2.Create a script file .
-using write-host or echo or write-output to display details
+Initialize variable $pin=1234
 
-login name   #  whoami
+read a input pin from pin from <STDIN>
 
-$name= $(whoami)
-write-host "Login Name : $name"
+compare input pin with existing $pin
 
-powershell version  # (get-host).version
-current working directory  # get-location
-date(MM/DD/YYYY)  # (get-date -UFormat %m-%d-%y)
+task 
+2. Modify above with 3 attempts
+
+max attempts is 3
+
+Note :- while , for
+#>
+
+
+<#
+while
+-----
+initialization
+while(condition){
+	codeblock
+	increment/decrement   $c=$c+1   (or) $c++ 
+}
+
 
 #>
 
-$name= $(whoami)
-$v=$(get-host).version
-$mycwd=$(get-location)
-$d=$(get-date -UFormat %m-%d-%Y)
-
-write-host "Login Name : $name"
-write-host "Working POwershell Version : $v"
-write-host "Working Directory Path : $mycwd"
-write-host "Today: $d"
+$pin=1234
 
 
+$c=0
+while($c -lt 3){
 
+	[int]$p= Read-Host "Enter the PIN"
 
+	$c++
 
+	if( $pin -eq $p){
+		echo "Success. Pin Matched at $c attempt "
+		break # exit from loop
+	}else{
+		echo "Pin Not Matched"
+	}
 
+}
 
+if($pin -ne $p){
+	echo "PIN Blocked"
+}
