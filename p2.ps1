@@ -1,54 +1,21 @@
-<#
-task
-=====
-1.Write a powerscript
+$name=read-host "Enter the Employee Name"
 
-Initialize variable $pin=1234
-
-read a input pin from pin from <STDIN>
-
-compare input pin with existing $pin
-
-task 
-2. Modify above with 3 attempts
-
-max attempts is 3
-
-Note :- while , for
-#>
-
-
-<#
-while
------
-initialization
-while(condition){
-	codeblock
-	increment/decrement   $c=$c+1   (or) $c++ 
+if($name -cmatch "^[A-Z][a-z]+$"){
+	echo "Valid Format"
+}
+else{
+	echo "Sorry $name is invalid format"
+	exit
 }
 
+$id=read-host "Enter the Employee Id"
 
-#>
-
-$pin=1234
-
-
-$c=0
-while($c -lt 3){
-
-	[int]$p= Read-Host "Enter the PIN"
-
-	$c++
-
-	if( $pin -eq $p){
-		echo "Success. Pin Matched at $c attempt "
-		break # exit from loop
-	}else{
-		echo "Pin Not Matched"
-	}
-
+if($id -match "^[A-E]\d{3}$"){      
+	echo "Valid Format"
+}
+else{
+	echo "Sorry $id is in InValid Format"
+	exit
 }
 
-if($pin -ne $p){
-	echo "PIN Blocked"
-}
+echo "Name:$name`tID:$id"

@@ -1,61 +1,71 @@
-$fname=Read-Host "Enter File Name"
+<#
+Property.txt
+------------
+Onboot=True
+bootProto=null
 
 
-if (Test-Path -path $fname){
-	echo "File exist"
-	exit  # exit from script
+
+Task
+----
+step1: Create an empty Hash  $h=@{}
+step2: Display Hash Size    
+step3: Read a property File
+step4: Using the property label as Key and property Value as hash value,
+	add entries to the existing Hash  
+		(key,value)
+
+step 5: Display the HAsh Size
+step 6: update the Onboot =False
+
+#>
+
+$h= @{}  # empty hash
+echo "A. Size : $($h.count)"
+
+foreach($var in Get-Content ".\Property.txt"){
+	if($var -match "^$"){
+		continue # ignore empty line
+	}else{
+		$k,$v= $var.split("=")
+		$h[$k]=$v   # add new data to existing hash
+	            	    # $h.add($k,$v)
+	}
 }
 
-for($i=0; $i -lt 5; $i++){
-	$var= Read-Host "Enter Some Text"
-	set-content $fname $var    # overwrite if data exist already- cmdlet way
-	# echo $var > $fname      #  redirection symbol way
+echo "B. Size : $($h.count)"
+
+echo "`nProperty`tValues"
+foreach($var in $h.keys){
+	echo "$var `t $($h[$var])"
+}
+
+$h["Onboot"]="False"
+
+echo "Updated Hash"
+
+echo "`nProperty`tValues"
+foreach($var in $h.keys){
+	echo "$var `t $($h[$var])"
+}
+
+$fname=Read-Host "Enter the filename"
+
+if(Test-Path $fname){
+	Write-host "File already exist"
+	exit
+}else{
+	foreach( $k in $h.keys){
+		echo "$k`:$($h[$k])"  >> $fname   # Append /Write hash to file
+	}
 }
 
 
-####################################################################################
-(base) PS C:\Users\theeba\PS\day2> cat p3.ps1
-
-$fname=Read-Host "Enter File Name"
 
 
-if (Test-Path -path $fname){
-        echo "File exist"
-        exit  # exit from script
-}
-
-for($i=0; $i -lt 5; $i++){
-        $var= Read-Host "Enter Some Text"
-        add-content $fname $var    # append- cmdlet way
-        # echo $var >> $fname      # append - redirection symbol way
-}
-
-(base) PS C:\Users\theeba\PS\day2> powershell .\p3.ps1
-Enter File Name: sample.txt
-File exist
-(base) PS C:\Users\theeba\PS\day2> notepad p4.ps1
-(base) PS C:\Users\theeba\PS\day2> cat p4.ps1
-$fname=Read-Host "Enter File Name"
 
 
-if (Test-Path -path $fname){
-        echo "File exist"
-        exit  # exit from script
-}
 
-for($i=0; $i -lt 5; $i++){
-        $var= Read-Host "Enter Some Text"
-        set-content $fname $var    # overwrite if data exist already- cmdlet way
-        # echo $var > $fname      #  redirection symbol way
-}
 
-(base) PS C:\Users\theeba\PS\day2> powershell .\p4.ps1
-Enter File Name: example.txt
-Enter Some Text: data1
-Enter Some Text: data2
-Enter Some Text: data3
-Enter Some Text: data4
-Enter Some Text: data5
-(base) PS C:\Users\theeba\PS\day2> get-content example.txt
-data5
-(base) PS C:\Users\theeba\PS\day2>
+
+

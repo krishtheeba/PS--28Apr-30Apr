@@ -1,0 +1,2051 @@
+
+Array					Hash
+------					-----
+
+Collection 				Collection
+(ordered element)			(Unordered element)
+
+							Item--> (Key,Value)
+Index [int]				key["string"]
+
+$v=@()					$v=@{}
+
+$v=@(10,1.2,"data")			$v=@{"k1"="v1"; "k2"=100, "k3"=1.22}
+
+-------------------				-------------------------------
+10  |  1.2  | "data"				Key		|	Value
+-------------------				--------------------------------
+0      1        2				  k1            |      V1
+-3      -2      -1  			        --------------------------------
+                                                  k2            |      100
+                                                 ------------------------------
+                                                  k3            |      1.22
+
+$v[1]="Test"					$v["old_key"]="Updated_value"
+  |
+  mutable
+
+
+$v=@()						$h=@{}
+$v=$v+"NEW-ELEMENt"				$h["new_key"]="New_value"
+						(or)
+						$h.add("key","value")
+
+
+
+======================================================================================
+
+Q1. Write a powershell script
+
+step1 : create an empty array : $hosts=@()
+
+step2 : Using while loop - 5 times
+		read hostname from <STDIN>
+		Add input hostname to existing array
+step3: Display Total no. of array elements
+
+step4: Using foreach loop - display list of elements
+
+step4: Modify 1st Index hostname--->   127.0.0.1
+
+step5: Step4 updated hostname details.
+------------------------------------------------------------------------------
+Q2. Write a powershell script
+
+step1 : create an empty Hash : $hosts=@{}
+
+step2 : Using while loop - 5 times
+		read hostname from <STDIN>
+		read Ip Address from <STDIN>
+		Add entries to Hash with Hostname as Key & IpAddress as Values
+
+step3: Display Total no. of hash items
+
+step4: Using foreach loop - display list of items
+
+step4: Modify "Host01" Key with IpAddress--->   127.0.0.1
+
+step5: Step4 updated hostname details.
+
+----------------------------------------------------------------------------------------
+
+
+$emp=@{"name"="Kumar"; "Dept"="Sales"}
+base) PS C:\Users\theeba\PS\day3> $emp=@{"name"="Kumar"; "Dept"="Sales"}
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $emp=@{"name"=@("Kumar","Arun","Vishnu"); "Dept"=@("sales","Hr","Prod")}
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $emp
+
+Name                           Value
+----                           -----
+name                           {Kumar, Arun, Vishnu}
+Dept                           {sales, Hr, Prod}
+
+
+(base) PS C:\Users\theeba\PS\day3> $emp.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Hashtable                                System.Object
+
+
+(base) PS C:\Users\theeba\PS\day3> $emp["name"]
+Kumar
+Arun
+Vishnu
+(base) PS C:\Users\theeba\PS\day3> $emp["name"].gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Object[]                                 System.Array
+
+
+(base) PS C:\Users\theeba\PS\day3> $emp["name"]
+Kumar
+Arun
+Vishnu
+(base) PS C:\Users\theeba\PS\day3> $emp["name"][1]
+Arun
+(base) PS C:\Users\theeba\PS\day3> $emp["name"][2]
+Vishnu
+(base) PS C:\Users\theeba\PS\day3> $emp["name"][2]="Raghav"   # $array_name[index]=Updatedvalue
+(base) PS C:\Users\theeba\PS\day3> $emp
+
+Name                           Value
+----                           -----
+name                           {Kumar, Arun, Raghav}
+Dept                           {sales, Hr, Prod}
+
+
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $PSVersionTable
+
+Name                           Value
+----                           -----
+PSVersion                      5.1.22621.4391
+PSEdition                      Desktop
+PSCompatibleVersions           {1.0, 2.0, 3.0, 4.0...}
+BuildVersion                   10.0.22621.4391
+CLRVersion                     4.0.30319.42000
+WSManStackVersion              3.0
+PSRemotingProtocolVersion      2.3
+SerializationVersion           1.1.0.1
+
+
+(base) PS C:\Users\theeba\PS\day3> $PSVersionTable.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Hashtable                                System.Object
+
+
+(base) PS C:\Users\theeba\PS\day3> $PSVersionTable.keys
+PSVersion
+PSEdition
+PSCompatibleVersions
+BuildVersion
+CLRVersion
+WSManStackVersion
+PSRemotingProtocolVersion
+SerializationVersion
+(base) PS C:\Users\theeba\PS\day3> $PSVersionTable.values
+
+Major  Minor  Build  Revision
+-----  -----  -----  --------
+5      1      22621  4391
+Desktop
+1      0      -1     -1
+2      0      -1     -1
+3      0      -1     -1
+4      0      -1     -1
+5      0      -1     -1
+5      1      22621  4391
+10     0      22621  4391
+4      0      30319  42000
+3      0      -1     -1
+2      3      -1     -1
+1      1      0      1
+
+
+(base) PS C:\Users\theeba\PS\day3> $PSVersionTable.count
+8
+(base) PS C:\Users\theeba\PS\day3> $PSVersionTable
+
+Name                           Value
+----                           -----
+PSVersion                      5.1.22621.4391
+PSEdition                      Desktop
+PSCompatibleVersions           {1.0, 2.0, 3.0, 4.0...}
+BuildVersion                   10.0.22621.4391
+CLRVersion                     4.0.30319.42000
+WSManStackVersion              3.0
+PSRemotingProtocolVersion      2.3
+SerializationVersion           1.1.0.1
+
+
+(base) PS C:\Users\theeba\PS\day3> $PSVersionTable.version
+(base) PS C:\Users\theeba\PS\day3> $PSVersionTable["PSVersion"]
+
+Major  Minor  Build  Revision
+-----  -----  -----  --------
+5      1      22621  4391
+
+
+(base) PS C:\Users\theeba\PS\day3> $PSVersionTable['PSVersion']
+
+Major  Minor  Build  Revision
+-----  -----  -----  --------
+5      1      22621  4391
+
+
+#################################################################################
+
+Array of Array
+Array of Hash
+Hash of Array
+Hash Of Hash
+
+
+
+$v=@(elements)-> index based
+
+$v[index]
+
+$v={"key"="value";...."Kn"="vn"}
+$v["key"]
+
+$a=@(@(..),@(..),.....@(..))
+
+$a=@(@{}, @{})
+
+
+###################################################################################
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $h=@(@(),@(),@())
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $h.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Object[]                                 System.Array
+
+
+(base) PS C:\Users\theeba\PS\day3> $h[0].gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Object[]                                 System.Array
+
+
+
+(base) PS C:\Users\theeba\PS\day3> $h[0]=$h[0]+10
+(base) PS C:\Users\theeba\PS\day3> # array=array+element
+(base) PS C:\Users\theeba\PS\day3> $h
+10
+(base) PS C:\Users\theeba\PS\day3> $h[0]=$h[0]+20
+(base) PS C:\Users\theeba\PS\day3> $h[0]=$h[0]+30
+(base) PS C:\Users\theeba\PS\day3> $h[1]=$h[1]+"data1"
+(base) PS C:\Users\theeba\PS\day3> $h[1]=$h[1]+"data2"
+(base) PS C:\Users\theeba\PS\day3> $h[1]=$h[1]+"data3"
+(base) PS C:\Users\theeba\PS\day3> $h[2]=$h[2]+ 1.22
+(base) PS C:\Users\theeba\PS\day3> $h[2]=$h[2]+ 4.3
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $h
+10
+20
+30
+data1
+data2
+data3
+1.22
+4.3
+(base) PS C:\Users\theeba\PS\day3> $h[1][0]
+data1
+(base) PS C:\Users\theeba\PS\day3> $h[1]
+data1
+data2
+data3
+(base) PS C:\Users\theeba\PS\day3> $h[0]
+10
+20
+30
+(base) PS C:\Users\theeba\PS\day3> $h[2]
+1.22
+4.3
+(base) PS C:\Users\theeba\PS\day3> $a=@(@{}, @{})   # Array of Hash
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $a[0]
+(base) PS C:\Users\theeba\PS\day3> $a[0].gettype().name
+Hashtable
+(base) PS C:\Users\theeba\PS\day3> $a[0]["key1"]="value1"
+(base) PS C:\Users\theeba\PS\day3> $a[0].add("key2","value2")
+(base) PS C:\Users\theeba\PS\day3> $a[0]
+
+Name                           Value
+----                           -----
+key1                           value1
+key2                           value2
+
+
+(base) PS C:\Users\theeba\PS\day3> $a
+
+Name                           Value
+----                           -----
+key1                           value1
+key2                           value2
+
+
+(base) PS C:\Users\theeba\PS\day3> $a.gettype()
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Object[]                                 System.Array
+
+
+(base) PS C:\Users\theeba\PS\day3> # HAsh of Array
+(base) PS C:\Users\theeba\PS\day3> $process= @{}
+(base) PS C:\Users\theeba\PS\day3> $process["Notepad"]="C:\Winx\notepad.exe"
+(base) PS C:\Users\theeba\PS\day3> $process["Python"]="C:\Winx\python3.exe"
+(base) PS C:\Users\theeba\PS\day3> # single Hash
+(base) PS C:\Users\theeba\PS\day3> $process
+
+Name                           Value
+----                           -----
+Python                         C:\Winx\python3.exe
+Notepad                        C:\Winx\notepad.exe
+
+
+(base) PS C:\Users\theeba\PS\day3> $appln=@{}
+(base) PS C:\Users\theeba\PS\day3> $appln["Appl1"]=@("Perl","Python","Ruby")
+(base) PS C:\Users\theeba\PS\day3> $appln["Appl2"]=@("DB1","DB2","DB3")
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $appln.add("Appl3",@("V1","V2"))
+(base) PS C:\Users\theeba\PS\day3> # 1 to many
+(base) PS C:\Users\theeba\PS\day3> $appln.count
+3
+(base) PS C:\Users\theeba\PS\day3> $appln.keys
+Appl2
+Appl1
+Appl3
+(base) PS C:\Users\theeba\PS\day3> $appln.values
+DB1
+DB2
+DB3
+Perl
+Python
+Ruby
+V1
+V2
+(base) PS C:\Users\theeba\PS\day3> $appln["Appl1"]
+Perl
+Python
+Ruby
+(base) PS C:\Users\theeba\PS\day3> $appln["Appl1"][0]
+Perl
+(base) PS C:\Users\theeba\PS\day3> $appln["Appl2"][0]
+DB1
+(base) PS C:\Users\theeba\PS\day3> $appln["Appl3"][0]
+V1
+(base) PS C:\Users\theeba\PS\day3> #Hash of Hash
+(base) PS C:\Users\theeba\PS\day3> # $h=@{"k1"="value"}
+(base) PS C:\Users\theeba\PS\day3> #             |----- Hash
+(base) PS C:\Users\theeba\PS\day3> $hoh=@{"k1"=@{"k1"="v1"; "k2"="v2"; "k3"="v3"}}
+(base) PS C:\Users\theeba\PS\day3> $hoh.count
+1
+(base) PS C:\Users\theeba\PS\day3> $hoh["k1"]
+
+Name                           Value
+----                           -----
+k1                             v1
+k3                             v3
+k2                             v2
+
+
+(base) PS C:\Users\theeba\PS\day3> $hoh["k1"]["k1"]
+v1
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $hoa=@{"ports"=@(); "proto"=@()}
+(base) PS C:\Users\theeba\PS\day3> $p=@{"shell"=(get-process powershell); "notepad"=(get-process notepad)}
+(base) PS C:\Users\theeba\PS\day3> $p.count
+2
+(base) PS C:\Users\theeba\PS\day3> $p["shell"]
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    886      33    69880      81084       2.08  24028   1 powershell
+
+
+(base) PS C:\Users\theeba\PS\day3> $p["shell"].count
+1
+(base) PS C:\Users\theeba\PS\day3> $p["notepad"].count
+2
+(base) PS C:\Users\theeba\PS\day3> $p["shell"][0]
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    886      33    69880      81084       2.11  24028   1 powershell
+
+
+(base) PS C:\Users\theeba\PS\day3> $p["shell"][-1]
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    886      33    69880      81084       2.11  24028   1 powershell
+
+
+(base) PS C:\Users\theeba\PS\day3> notepad p2.ps1
+(base) PS C:\Users\theeba\PS\day3> notepad p3.ps1
+(base) PS C:\Users\theeba\PS\day3> $p=@{"shell"=(get-process powershell); "notepad"=(get-process notepad)}
+(base) PS C:\Users\theeba\PS\day3> $p["notepad"].count
+4
+(base) PS C:\Users\theeba\PS\day3> $p["notepad"][0]
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+   1136      52    84820     116988      21.67   3684   1 Notepad
+
+
+(base) PS C:\Users\theeba\PS\day3> $p["notepad"][1..3]
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    212      13     3132      14888       0.02   4496   1 Notepad
+    212      13     3132      14876       0.02  24712   1 Notepad
+    212      13     3016      14228       0.22  26400   1 Notepad
+
+
+(base) PS C:\Users\theeba\PS\day3> $p["notepad"][2..3]
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    212      13     3132      14876       0.02  24712   1 Notepad
+    212      13     3016      14228       0.22  26400   1 Notepad
+
+
+(base) PS C:\Users\theeba\PS\day3> $p.add("Service",(Get-Service))
+(base) PS C:\Users\theeba\PS\day3> $p["Service"]
+
+Status   Name               DisplayName
+------   ----               -----------
+Stopped  AarSvc_7567a       Agent Activation Runtime_7567a
+Stopped  AJRouter           AllJoyn Router Service
+Stopped  ALG                Application Layer Gateway Service
+Stopped  AppIDSvc           Application Identity
+Running  Appinfo            Application Information
+Stopped  AppReadiness       App Readiness
+Stopped  AppXSvc            AppX Deployment Service (AppXSVC)
+Running  AudioEndpointBu... Windows Audio Endpoint Builder
+Running  Audiosrv           Windows Audio
+Stopped  autotimesvc        Cellular Time
+Stopped  AxInstSV           ActiveX Installer (AxInstSV)
+Stopped  BcastDVRUserSer... GameDVR and Broadcast User Service_...
+Running  BDESVC             BitLocker Drive Encryption Service
+Running  BFE                Base Filtering Engine
+Running  BITS               Background Intelligent Transfer Ser...
+Stopped  BluetoothUserSe... Bluetooth User Support Service_7567a
+Running  BrokerInfrastru... Background Tasks Infrastructure Ser...
+Stopped  BTAGService        Bluetooth Audio Gateway Service
+Stopped  BthAvctpSvc        AVCTP service
+Running  bthserv            Bluetooth Support Service
+Running  camsvc             Capability Access Manager Service
+Stopped  CaptureService_... CaptureService_7567a
+Running  cbdhsvc_7567a      Clipboard User Service_7567a
+
+
+(base) PS C:\Users\theeba\PS\day3> $p["Service"].count
+296
+(base) PS C:\Users\theeba\PS\day3> $p["Service"][2..10]
+
+Status   Name               DisplayName
+------   ----               -----------
+Stopped  ALG                Application Layer Gateway Service
+Stopped  AppIDSvc           Application Identity
+Running  Appinfo            Application Information
+Stopped  AppReadiness       App Readiness
+Stopped  AppXSvc            AppX Deployment Service (AppXSVC)
+Running  AudioEndpointBu... Windows Audio Endpoint Builder
+Running  Audiosrv           Windows Audio
+Stopped  autotimesvc        Cellular Time
+Stopped  AxInstSV           ActiveX Installer (AxInstSV)
+
+
+(base) PS C:\Users\theeba\PS\day3> $p["Service"][2..10]|where-Object {$_.status -eq "Stopped"}
+
+Status   Name               DisplayName
+------   ----               -----------
+Stopped  ALG                Application Layer Gateway Service
+Stopped  AppIDSvc           Application Identity
+Stopped  AppReadiness       App Readiness
+Stopped  AppXSvc            AppX Deployment Service (AppXSVC)
+Stopped  autotimesvc        Cellular Time
+Stopped  AxInstSV           ActiveX Installer (AxInstSV)
+
+
+
+#########################################################################################
+
+
+Out-File
+--------
+commandlet > resultfile
+
+commandlet|Out-File resultfile
+
+commandlet|Out-File resultfile -NoClobber     # avoid overwrite
+
+
+====================================================================================
+
+RegX
+----
+
+Select-Object
+|---------------select specific property of object
+
+-property
+-first
+-last
+-skip
+-index(Array)
+-script {$_}
+
+Select-String
+-------------
+|------------------based on text
+|------------------- like grep 
+
+Select-String -InputObject input -pattern pattern
+
+
+Select-String text file
+Select-String "test" ".\d1.txt"
+
+Select-String "text" file1, file2,file3
+file1:lineNo Matched pattern line content
+..
+...
+
+==================================================================================
+
+RegX
+----
+|-----Search ------------------>   -match (operator)  ====>Boolean (True/ False)
+|-----Substitute (replace)----->   -replace (operator)  =====> Boolean (True/False)
+
+
+Select-String ---> Regx--> string based search
+
+
+$eid=read-host "Enter a emp ID"
+----
+|
+----123
+----abc
+----a2v4
+---^%%$%
+
+<UPPERCASE><DIGIT><DIGIT><DIGIT> //expected format
+
+"input-string" -match pattern(Regx) ---> True/false 
+
+-match
+-replace
+//operator----conditional,looping,filehandling
+
+
+BRE			ERE
+---			---
+^			|
+$			()
+^pattern$		+
+^$- empty line		{}
+
+.*
+[]
+^[]
+[^]
+
+"power shell " -match "^power.shell$" -> True
+
+"power:shell " -match "^power.shell$" -> True
+
+"power;shell " -match "^power.shell$" -> True
+
+"power     shell " -match "^power.shell$" -> False
+
+
+* - zero or more 
+
+"power     shell " -match "^power.*shell$" -> True
+
+"power  %^&^%&*%^(*&&&(&()&()   shell " -match "^power.*shell$"
+
+
+
+^$ -> emptyline
+
+^pattern
+patter$
+^pattern$
+
+[] -> Single character
+
+[AB]c45
+-------
+Ac45
+Bc45
+
+[AB][CD]45
+----------
+AC45
+AD45
+BC45
+BD45
+
+"working kernel is aix"  -match "abc"
+                                  ----> word
+
+"working kernel is aix"  -match "[abc]"
+                                  |------Character (1 char)
+
+"working kernel is aix"  -match "[abc][e34]"
+				  |------ Character (2 char)
+
+
+ae
+a3
+a4
+be
+b3
+b4
+ce
+c3
+c4
+--------------------> matched input
+
+[A-Z]
+[a-z]
+[0-9]
+[A-Za-z]
+[A-Za-z0-9]
+
+[A-E] ---> [ABCDE]
+
+[2-5]---> 
+
+^[0-9][0-9]$
+
+[:alnum:] -> [A-Za-z0-9] --> \w
+
+[:digit:]  -> [0-9] --> \d
+space --> \s
+
+
+Select-String "[At4]" inputfile
+                |-------------------> True
+                |----> char 'A'  't'   '4'   anywhere in file
+
+
+Select-String "^[At4]" inputfile
+                         |----> Line starts with 'A' 't' '4'====> True
+
+
+Select-String "[At4]$" inputfile
+                         |----> Line ends with 'A' 't' '4' ===> True
+
+
+##################################################################################
+(base) PS C:\Users\theeba\PS\day3> get-content IP.txt
+ram,prod
+Kumar,sales
+Vijat,prod
+Raghav,CRM
+(base) PS C:\Users\theeba\PS\day3> cat Ip.txt| Select-String "sales"
+
+Kumar,sales
+
+
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> "ram,prod" -match "sales"
+False
+(base) PS C:\Users\theeba\PS\day3> "ram,sales" -match "sales"
+True
+(base) PS C:\Users\theeba\PS\day3> $Matches
+
+Name                           Value
+----                           -----
+0                              sales
+
+
+(base) PS C:\Users\theeba\PS\day3> "kumar,prod" -match "prod"
+True
+(base) PS C:\Users\theeba\PS\day3> $Matches
+
+Name                           Value
+----                           -----
+0                              prod
+
+
+(base) PS C:\Users\theeba\PS\day3> If("anu,sales" -match "sales"){
+>> echo "Matched"
+>> }
+Matched
+(base) PS C:\Users\theeba\PS\day3> If("anu,sales" -match "sales"){
+>> echo "Matched"
+>> }else{
+>> echo "Not Matched"
+>> }
+Matched
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> "list of sales emp details " -match "sales"
+True
+(base) PS C:\Users\theeba\PS\day3> "list of sales emp details " -match "^sales"
+False
+(base) PS C:\Users\theeba\PS\day3> "list of sales emp details " -match "sales$"
+False
+(base) PS C:\Users\theeba\PS\day3> "list of sales emp details " -match "^sales$"
+False
+(base) PS C:\Users\theeba\PS\day3> "sales emp details " -match "^sales"
+True
+(base) PS C:\Users\theeba\PS\day3> "sales emp details sales " -match "^sales"
+True
+(base) PS C:\Users\theeba\PS\day3> "sales emp details sales " -match "sales$"
+False
+(base) PS C:\Users\theeba\PS\day3> "sales emp details sales" -match "sales$"
+True
+(base) PS C:\Users\theeba\PS\day3> "sales" -match "^sales$"
+True
+(base) PS C:\Users\theeba\PS\day3> "sales salesewewe" -match "^$"
+False
+(base) PS C:\Users\theeba\PS\day3> "sales salesewewe" -match "^s"
+True
+(base) PS C:\Users\theeba\PS\day3> Select-String "sales" Ip.txt
+
+Ip.txt:2:Kumar,sales
+
+
+(base) PS C:\Users\theeba\PS\day3> Select-String "^sales" Ip.txt
+(base) PS C:\Users\theeba\PS\day3> add-content Ip.txt -Value "
+>> sales
+>> prod,sales
+>> sales,ram,2121
+>>
+>> sales
+>>
+>> "
+(base) PS C:\Users\theeba\PS\day3> Select-String "sales" Ip.txt
+
+Ip.txt:2:Kumar,sales
+Ip.txt:6:sales
+Ip.txt:7:prod,sales
+Ip.txt:8:sales,ram,2121
+Ip.txt:10:sales
+
+
+(base) PS C:\Users\theeba\PS\day3> cat Ip.txt
+ram,prod
+Kumar,sales
+Vijat,prod
+Raghav,CRM
+
+sales
+prod,sales
+sales,ram,2121
+
+sales
+
+
+(base) PS C:\Users\theeba\PS\day3> Select-String "sales" Ip.txt
+
+Ip.txt:2:Kumar,sales
+Ip.txt:6:sales
+Ip.txt:7:prod,sales
+Ip.txt:8:sales,ram,2121
+Ip.txt:10:sales
+
+
+(base) PS C:\Users\theeba\PS\day3> Select-String "^sales" Ip.txt
+
+Ip.txt:6:sales
+Ip.txt:8:sales,ram,2121
+Ip.txt:10:sales
+
+
+(base) PS C:\Users\theeba\PS\day3> Select-String "^sales$" Ip.txt
+
+Ip.txt:6:sales
+Ip.txt:10:sales
+
+
+(base) PS C:\Users\theeba\PS\day3> Select-String "sales$" Ip.txt
+
+Ip.txt:2:Kumar,sales
+Ip.txt:6:sales
+Ip.txt:7:prod,sales
+Ip.txt:10:sales
+
+
+(base) PS C:\Users\theeba\PS\day3> "working kernel is aix" -match "[abc]"
+True
+(base) PS C:\Users\theeba\PS\day3> "working kernel is aix" -match "[abc][e4]"
+False
+(base) PS C:\Users\theeba\PS\day3> $v="SAMPLE TEST DATA ON 12 SEP 1999"
+(base) PS C:\Users\theeba\PS\day3> $v -match "^[A-Z]"
+True
+(base) PS C:\Users\theeba\PS\day3> $v -match "^[A-Z][a-z]"
+True
+(base) PS C:\Users\theeba\PS\day3> $v -match "[A-Z][a-z]"
+True
+(base) PS C:\Users\theeba\PS\day3> $v -cmatch "[A-Z][a-z]"
+False
+(base) PS C:\Users\theeba\PS\day3> $v -cmatch "[A-Z][A-Z]"
+True
+(base) PS C:\Users\theeba\PS\day3> $v -cmatch "[A-Z][A-Z].*DATA"
+True
+(base) PS C:\Users\theeba\PS\day3> $v -cmatch "[A-Z][A-Z].*DATA.*[0-9]"
+True
+(base) PS C:\Users\theeba\PS\day3> $v -cmatch "[0-9]\s$"
+False
+(base) PS C:\Users\theeba\PS\day3> $v -cmatch "[0-9]$"
+True
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> Get-Service | Where-Object {$_.Status -eq "Running"}
+
+Status   Name               DisplayName
+------   ----               -----------
+Running  Appinfo            Application Information
+Running  AudioEndpointBu... Windows Audio Endpoint Builder
+Running  Audiosrv           Windows Audio
+Running  BDESVC             BitLocker Drive Encryption Service
+Running  BFE                Base Filtering Engine
+Running  BITS               Background Intelligent Transfer Ser...
+Running  BrokerInfrastru... Background Tasks Infrastructure Ser...
+Running  bthserv            Bluetooth Support Service
+Running  camsvc             Capability Access Manager Service
+Running  cbdhsvc_7567a      Clipboard User Service_7567a
+Running  CDPSvc             Connected Devices Platform Service
+Running  CDPUserSvc_7567a   Connected Devices Platform User Ser...
+Running  ClickToRunSvc      Microsoft Office Click-to-Run Service
+Running  COMSysApp          COM+ System Application
+Running  CoreMessagingRe... CoreMessaging
+Running  cplspcon           Intel(R) Content Protection HDCP Se...
+Running  CryptSvc           Cryptographic Services
+Running  DcomLaunch         DCOM Server Process Launcher
+Running  DDVCollectorSvcApi Dell Data Vault Service API
+Running  DDVDataCollector   Dell Data Vault Collector
+Running  DDVRulesProcessor  Dell Data Vault Processor
+Running  Dell Digital De... Dell Digital Delivery Services
+Running  Dell SupportAss... Dell SupportAssist Remediation
+Running  DellClientManag... Dell Client Management Service
+Running  DellPairService    Dell Pair Service
+Running  DellTechHub        Dell TechHub
+Running  DeviceAssociati... Device Association Service
+Running  DevicesFlowUser... DevicesFlow_7567a
+Running  DevQueryBroker     DevQuery Background Discovery Broker
+Running  Dhcp               DHCP Client
+Running  DiagTrack          Connected User Experiences and Tele...
+Running  DispBrokerDeskt... Display Policy Service
+Running  DisplayEnhancem... Display Enhancement Service
+Running  Dnscache           DNS Client
+Running  DoSvc              Delivery Optimization
+Running  DPS                Diagnostic Policy Service
+Running  dptftcs            Intel(R) Dynamic Tuning Technology ...
+Running  DsSvc              Data Sharing Service
+Running  DusmSvc            Data Usage
+Running  EventLog           Windows Event Log
+Running  EventSystem        COM+ Event System
+Running  FileSyncHelper     FileSyncHelper
+Running  FontCache          Windows Font Cache Service
+Running  gpsvc              Group Policy Client
+Running  Grafana            Grafana
+Running  hidserv            Human Interface Device Service
+Running  hns                Host Network Service
+Running  HvHost             HV Host Service
+Running  icssvc             Windows Mobile Hotspot Service
+Running  IDBWM              Intel Dynamic Bandwidth Management
+Running  igccservice        Intel(R) Graphics Command Center Se...
+Running  InstallService     Microsoft Store Install Service
+Running  Intel Connectiv... Intel Connectivity Network Service
+Running  IntelAudioService  Intel(R) Audio Service
+Running  IntelConnectSer... IntelConnect Service
+Running  ipfsvc             Intel(R) Innovation Platform Framew...
+Running  iphlpsvc           IP Helper
+Running  jhi_service        Intel(R) Dynamic Application Loader...
+Running  KeyIso             CNG Key Isolation
+Running  LanmanServer       Server
+Running  LanmanWorkstation  Workstation
+Running  lfsvc              Geolocation Service
+Running  LicenseManager     Windows License Manager Service
+Running  lmhosts            TCP/IP NetBIOS Helper
+Running  LSM                Local Session Manager
+Running  McAfee WebAdvisor  McAfee WebAdvisor
+Running  mc-fw-host         McAfee Framework Host
+Running  mpssvc             Windows Defender Firewall
+Running  MSDTC              Distributed Transaction Coordinator
+Running  NcbService         Network Connection Broker
+Running  Netman             Network Connections
+Running  netprofm           Network List Service
+Running  NPSMSvc_7567a      NPSMSvc_7567a
+Running  nsi                Network Store Interface Service
+Running  nvagent            Network Virtualization Service
+Running  OneSyncSvc_7567a   Sync Host_7567a
+Running  PcaSvc             Program Compatibility Assistant Ser...
+Running  PlugPlay           Plug and Play
+Running  Power              Power
+Running  ProfSvc            User Profile Service
+Running  QWAVE              Quality Windows Audio Video Experience
+Running  RasMan             Remote Access Connection Manager
+Running  RmSvc              Radio Management Service
+Running  RpcEptMapper       RPC Endpoint Mapper
+Running  RpcSs              Remote Procedure Call (RPC)
+Running  RstMwService       Intel(R) Storage Middleware Service
+Running  RtkAudioUnivers... Realtek Audio Universal Service
+Running  SamSs              Security Accounts Manager
+Running  Schedule           Task Scheduler
+Running  SecurityHealthS... Windows Security Service
+Running  SENS               System Event Notification Service
+Running  SharedAccess       Internet Connection Sharing (ICS)
+Running  ShellHWDetection   Shell Hardware Detection
+Running  smphost            Microsoft Storage Spaces SMP
+Running  Spooler            Print Spooler
+Running  SSDPSRV            SSDP Discovery
+Running  SstpSvc            Secure Socket Tunneling Protocol Se...
+Running  StateRepository    State Repository Service
+Running  StorSvc            Storage Service
+Running  SupportAssistAgent Dell SupportAssist
+Running  SysMain            SysMain
+Running  SystemEventsBroker System Events Broker
+Running  TextInputManage... Text Input Management Service
+Running  Themes             Themes
+Running  TimeBrokerSvc      Time Broker
+Running  TokenBroker        Web Account Manager
+Running  TrkWks             Distributed Link Tracking Client
+Running  UdkUserSvc_7567a   Udk User Service_7567a
+Running  UserManager        User Manager
+Running  UsoSvc             Update Orchestrator Service
+Running  VaultSvc           Credential Manager
+Running  WavesAudioService  Waves Audio Universal Services
+Running  WavesSysSvc        Waves Audio Services
+Running  Wcmsvc             Windows Connection Manager
+Running  WdiSystemHost      Diagnostic System Host
+Running  webthreatdefuse... Web Threat Defense User Service_7567a
+Running  WinHttpAutoProx... WinHTTP Web Proxy Auto-Discovery Se...
+Running  Winmgmt            Windows Management Instrumentation
+Running  WlanSvc            WLAN AutoConfig
+Running  wlidsvc            Microsoft Account Sign-in Assistant
+Running  WMIRegistration... Intel(R) Management Engine WMI Prov...
+Running  WpnService         Windows Push Notifications System S...
+Running  WpnUserService_... Windows Push Notifications User Ser...
+Running  wscsvc             Security Center
+Running  WSearch            Windows Search
+
+
+(base) PS C:\Users\theeba\PS\day3> Get-Service | Where-Object {$_.Status -eq "Running"} > F.log
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> foreach($v in Get-Content .\F.log){
+>> if($v -match "Running"){
+>> echo $v
+>> }
+>> }
+Running  Appinfo            Application Information
+Running  AudioEndpointBu... Windows Audio Endpoint Builder
+Running  Audiosrv           Windows Audio
+Running  BDESVC             BitLocker Drive Encryption Service
+Running  BFE                Base Filtering Engine
+Running  BITS               Background Intelligent Transfer Ser...
+Running  BrokerInfrastru... Background Tasks Infrastructure Ser...
+Running  bthserv            Bluetooth Support Service
+Running  camsvc             Capability Access Manager Service
+Running  cbdhsvc_7567a      Clipboard User Service_7567a
+Running  CDPSvc             Connected Devices Platform Service
+Running  CDPUserSvc_7567a   Connected Devices Platform User Ser...
+Running  ClickToRunSvc      Microsoft Office Click-to-Run Service
+Running  COMSysApp          COM+ System Application
+Running  CoreMessagingRe... CoreMessaging
+Running  cplspcon           Intel(R) Content Protection HDCP Se...
+Running  CryptSvc           Cryptographic Services
+Running  DcomLaunch         DCOM Server Process Launcher
+Running  DDVCollectorSvcApi Dell Data Vault Service API
+Running  DDVDataCollector   Dell Data Vault Collector
+Running  DDVRulesProcessor  Dell Data Vault Processor
+Running  Dell Digital De... Dell Digital Delivery Services
+Running  Dell SupportAss... Dell SupportAssist Remediation
+Running  DellClientManag... Dell Client Management Service
+Running  DellPairService    Dell Pair Service
+Running  DellTechHub        Dell TechHub
+Running  DeviceAssociati... Device Association Service
+Running  DevicesFlowUser... DevicesFlow_7567a
+Running  DevQueryBroker     DevQuery Background Discovery Broker
+Running  Dhcp               DHCP Client
+Running  DiagTrack          Connected User Experiences and Tele...
+Running  DispBrokerDeskt... Display Policy Service
+Running  DisplayEnhancem... Display Enhancement Service
+Running  Dnscache           DNS Client
+Running  DoSvc              Delivery Optimization
+Running  DPS                Diagnostic Policy Service
+Running  dptftcs            Intel(R) Dynamic Tuning Technology ...
+Running  DsSvc              Data Sharing Service
+Running  DusmSvc            Data Usage
+Running  EventLog           Windows Event Log
+Running  EventSystem        COM+ Event System
+Running  FileSyncHelper     FileSyncHelper
+Running  FontCache          Windows Font Cache Service
+Running  gpsvc              Group Policy Client
+Running  Grafana            Grafana
+Running  hidserv            Human Interface Device Service
+Running  hns                Host Network Service
+Running  HvHost             HV Host Service
+Running  icssvc             Windows Mobile Hotspot Service
+Running  IDBWM              Intel Dynamic Bandwidth Management
+Running  igccservice        Intel(R) Graphics Command Center Se...
+Running  InstallService     Microsoft Store Install Service
+Running  Intel Connectiv... Intel Connectivity Network Service
+Running  IntelAudioService  Intel(R) Audio Service
+Running  IntelConnectSer... IntelConnect Service
+Running  ipfsvc             Intel(R) Innovation Platform Framew...
+Running  iphlpsvc           IP Helper
+Running  jhi_service        Intel(R) Dynamic Application Loader...
+Running  KeyIso             CNG Key Isolation
+Running  LanmanServer       Server
+Running  LanmanWorkstation  Workstation
+Running  lfsvc              Geolocation Service
+Running  LicenseManager     Windows License Manager Service
+Running  lmhosts            TCP/IP NetBIOS Helper
+Running  LSM                Local Session Manager
+Running  McAfee WebAdvisor  McAfee WebAdvisor
+Running  mc-fw-host         McAfee Framework Host
+Running  mpssvc             Windows Defender Firewall
+Running  MSDTC              Distributed Transaction Coordinator
+Running  NcbService         Network Connection Broker
+Running  Netman             Network Connections
+Running  netprofm           Network List Service
+Running  NPSMSvc_7567a      NPSMSvc_7567a
+Running  nsi                Network Store Interface Service
+Running  nvagent            Network Virtualization Service
+Running  OneSyncSvc_7567a   Sync Host_7567a
+Running  PcaSvc             Program Compatibility Assistant Ser...
+Running  PlugPlay           Plug and Play
+Running  Power              Power
+Running  ProfSvc            User Profile Service
+Running  QWAVE              Quality Windows Audio Video Experience
+Running  RasMan             Remote Access Connection Manager
+Running  RmSvc              Radio Management Service
+Running  RpcEptMapper       RPC Endpoint Mapper
+Running  RpcSs              Remote Procedure Call (RPC)
+Running  RstMwService       Intel(R) Storage Middleware Service
+Running  RtkAudioUnivers... Realtek Audio Universal Service
+Running  SamSs              Security Accounts Manager
+Running  Schedule           Task Scheduler
+Running  SecurityHealthS... Windows Security Service
+Running  SENS               System Event Notification Service
+Running  SharedAccess       Internet Connection Sharing (ICS)
+Running  ShellHWDetection   Shell Hardware Detection
+Running  smphost            Microsoft Storage Spaces SMP
+Running  Spooler            Print Spooler
+Running  SSDPSRV            SSDP Discovery
+Running  SstpSvc            Secure Socket Tunneling Protocol Se...
+Running  StateRepository    State Repository Service
+Running  StorSvc            Storage Service
+Running  SupportAssistAgent Dell SupportAssist
+Running  SysMain            SysMain
+Running  SystemEventsBroker System Events Broker
+Running  TextInputManage... Text Input Management Service
+Running  Themes             Themes
+Running  TimeBrokerSvc      Time Broker
+Running  TokenBroker        Web Account Manager
+Running  TrkWks             Distributed Link Tracking Client
+Running  UdkUserSvc_7567a   Udk User Service_7567a
+Running  UserManager        User Manager
+Running  UsoSvc             Update Orchestrator Service
+Running  VaultSvc           Credential Manager
+Running  WavesAudioService  Waves Audio Universal Services
+Running  WavesSysSvc        Waves Audio Services
+Running  Wcmsvc             Windows Connection Manager
+Running  WdiSystemHost      Diagnostic System Host
+Running  webthreatdefuse... Web Threat Defense User Service_7567a
+Running  WinHttpAutoProx... WinHTTP Web Proxy Auto-Discovery Se...
+Running  Winmgmt            Windows Management Instrumentation
+Running  WlanSvc            WLAN AutoConfig
+Running  wlidsvc            Microsoft Account Sign-in Assistant
+Running  WMIRegistration... Intel(R) Management Engine WMI Prov...
+Running  WpnService         Windows Push Notifications System S...
+Running  WpnUserService_... Windows Push Notifications User Ser...
+Running  wscsvc             Security Center
+Running  WSearch            Windows Search
+(base) PS C:\Users\theeba\PS\day3> foreach($v in Get-Content .\F.log){
+>> if($v -match "^Running.*win"){
+>> echo $v
+>> }
+>> }
+Running  AudioEndpointBu... Windows Audio Endpoint Builder
+Running  Audiosrv           Windows Audio
+Running  EventLog           Windows Event Log
+Running  FontCache          Windows Font Cache Service
+Running  icssvc             Windows Mobile Hotspot Service
+Running  LicenseManager     Windows License Manager Service
+Running  mpssvc             Windows Defender Firewall
+Running  QWAVE              Quality Windows Audio Video Experience
+Running  SecurityHealthS... Windows Security Service
+Running  Wcmsvc             Windows Connection Manager
+Running  WinHttpAutoProx... WinHTTP Web Proxy Auto-Discovery Se...
+Running  Winmgmt            Windows Management Instrumentation
+Running  WpnService         Windows Push Notifications System S...
+Running  WpnUserService_... Windows Push Notifications User Ser...
+Running  WSearch            Windows Search
+(base) PS C:\Users\theeba\PS\day3> foreach($v in Get-Content .\F.log){
+>> if($v -match "^Running.*win.*[gh]$"){
+>> echo $v
+>> }
+>> }
+(base) PS C:\Users\theeba\PS\day3> foreach($v in Get-Content .\F.log){
+>> if($v -match "^Running.*win"){
+>> echo $v
+>> }
+>> }
+>>
+>>
+Running  AudioEndpointBu... Windows Audio Endpoint Builder
+Running  Audiosrv           Windows Audio
+Running  EventLog           Windows Event Log
+Running  FontCache          Windows Font Cache Service
+Running  icssvc             Windows Mobile Hotspot Service
+Running  LicenseManager     Windows License Manager Service
+Running  mpssvc             Windows Defender Firewall
+Running  QWAVE              Quality Windows Audio Video Experience
+Running  SecurityHealthS... Windows Security Service
+Running  Wcmsvc             Windows Connection Manager
+Running  WinHttpAutoProx... WinHTTP Web Proxy Auto-Discovery Se...
+Running  Winmgmt            Windows Management Instrumentation
+Running  WpnService         Windows Push Notifications System S...
+Running  WpnUserService_... Windows Push Notifications User Ser...
+Running  WSearch            Windows Search
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> foreach($v in Get-Content .\F.log){
+>> if($v -match "Update|python|oracle"){
+>> echo $v
+>> }
+>> }
+Running  UsoSvc             Update Orchestrator Service
+(base) PS C:\Users\theeba\PS\day3> foreach($v in Get-Content .\F.log){
+>> if($v -match "Update|python|oracle|host|Audio"){
+>> echo $v
+>> }
+>> }
+Running  AudioEndpointBu... Windows Audio Endpoint Builder
+Running  Audiosrv           Windows Audio
+Running  hns                Host Network Service
+Running  HvHost             HV Host Service
+Running  IntelAudioService  Intel(R) Audio Service
+Running  lmhosts            TCP/IP NetBIOS Helper
+Running  mc-fw-host         McAfee Framework Host
+Running  OneSyncSvc_7567a   Sync Host_7567a
+Running  QWAVE              Quality Windows Audio Video Experience
+Running  RtkAudioUnivers... Realtek Audio Universal Service
+Running  smphost            Microsoft Storage Spaces SMP
+Running  UsoSvc             Update Orchestrator Service
+Running  WavesAudioService  Waves Audio Universal Services
+Running  WavesSysSvc        Waves Audio Services
+Running  WdiSystemHost      Diagnostic System Host
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> echo "for and while loop" | select-string "do|while|for"
+
+for and while loop
+
+
+(base) PS C:\Users\theeba\PS\day3> echo "for and while loop" | select-string "(while)(for)"
+(base) PS C:\Users\theeba\PS\day3> echo "for and while loop" | select-string "(for)(while)"
+(base) PS C:\Users\theeba\PS\day3> echo "forwhile loop" | select-string "(for)(while)"
+
+forwhile loop
+
+
+(base) PS C:\Users\theeba\PS\day3> echo "for and while loop" | select-string "(for).*(while)"
+
+for and while loop
+
+
+(base) PS C:\Users\theeba\PS\day3> echo "for and while loop" | select-string "(for|while|do).*(while|do)"
+
+for and while loop
+
+####################################################################################
+
+
+(Pattern1)(Pattern2)   --> both patterns should match--> same order---> True
+
+{n} times  ab{2}c===> abbc
+{n,} minimum n max- no limiy
+      ab{2,}c---> abbc, abbbbbbbbbbbbbbbc.....
+
+
+{n,m} min n max m
+	ab{2,3}-> abbc, abbbc 
++
+
+---------------------------
+
+Task
+----
+Q1. Write a powershell script
+
+step1:read an emp Name
+Validate the Input Format for Titlecase --> Arun Vijay Raghav Vishnu   # VAlid
+					 --> ARUN arun V.Arun Arun<space>Kumar  // Invalid Format
+
+step2:read an ID
+Validate Input format --> start with single Uppercase A to E followed by 3 Digits.
+Display 
+
+step3: Display the valid Name and ID
+----------------------------------------------
+
+-replace operator
+
+if(condition){ replace} else{original}
+
+
+syntax:-
+inputstring -replace "oldpattern", "newstring"
+                        |
+                       Regx
+
+###########################################################################
+(base) PS C:\Users\theeba\PS\day3> "java program" -replace "program", "script"
+java script
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $var="ram,sales,bglore,2221"
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $var -replace "sales","production"
+ram,production,bglore,2221
+(base) PS C:\Users\theeba\PS\day3> $v=$var -replace "sales","production"
+(base) PS C:\Users\theeba\PS\day3> $v
+ram,production,bglore,2221
+(base) PS C:\Users\theeba\PS\day3> $var -replace "SALES","production"
+ram,production,bglore,2221
+(base) PS C:\Users\theeba\PS\day3> $var -creplace "SALES","production"
+ram,sales,bglore,2221
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> "ram,sales,pune,12334" -replace "sales",""   #deleting sales word
+ram,,pune,12334
+(base) PS C:\Users\theeba\PS\day3> "ram,sales,pune,12334" -replace "sales.",""   #deleting sales word
+ram,pune,12334
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> Get-Date
+
+30 April 2025 14:27:03
+
+
+(base) PS C:\Users\theeba\PS\day3> (Get-Date) -replace "\s+", ":"
+30-04-2025:14:27:48
+(base) PS C:\Users\theeba\PS\day3> (Get-Date) -replace "\s+", "`n"
+30-04-2025
+14:27:57
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $fname="/etc/passwd"
+(base) PS C:\Users\theeba\PS\day3> $fname -replace "^", "ls -l"
+ls -l/etc/passwd
+(base) PS C:\Users\theeba\PS\day3> $fname -replace "^", "ls -l "
+ls -l /etc/passwd
+(base) PS C:\Users\theeba\PS\day3> $cost=121232
+(base) PS C:\Users\theeba\PS\day3> $cost -replace "$","Rs"
+121232Rs
+(base) PS C:\Users\theeba\PS\day3> $cost -replace "$","0.000Rs"
+1212320.000Rs
+(base) PS C:\Users\theeba\PS\day3> $cost -replace "$","$"
+121232$
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> $cost -replace "^","$"
+$121232
+(base) PS C:\Users\theeba\PS\day3> #read a csv file---> sales-----> production
+(base) PS C:\Users\theeba\PS\day3> cat "..\..\emp.csv"
+eid,ename,edept,eplace,ecost
+101,ram,sales,pune,1000
+102,leo,prod,bglore,2000
+103,anu,HR,hyd,3000
+104,paul,sales,bglore,3200
+423,zio,sales,pune,3420
+142,anu,prod,chennai,4300
+949,karthik,sales,bglore,3100
+848,tom,hr,chennai,3940
+931,vijay,prod,chennai,3411
+
+(base) PS C:\Users\theeba\PS\day3> foreach( $var in (Get-Content "..\..\emp.csv")){
+>> $var -replace "sales","CRM"
+>> }
+eid,ename,edept,eplace,ecost
+101,ram,CRM,pune,1000
+102,leo,prod,bglore,2000
+103,anu,HR,hyd,3000
+104,paul,CRM,bglore,3200
+423,zio,CRM,pune,3420
+142,anu,prod,chennai,4300
+949,karthik,CRM,bglore,3100
+848,tom,hr,chennai,3940
+931,vijay,prod,chennai,3411
+(base) PS C:\Users\theeba\PS\day3> foreach( $var in (Get-Content "..\..\emp.csv")){
+>> if($var -match "sales"){
+>> $var -replace "sales","CRM"
+>> }
+>> }
+101,ram,CRM,pune,1000
+104,paul,CRM,bglore,3200
+423,zio,CRM,pune,3420
+949,karthik,CRM,bglore,3100
+(base) PS C:\Users\theeba\PS\day3> foreach( $var in (Get-Process)){
+>> if($var -match "t.$"){
+>> echo $var
+>> }}
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    220      12     4336      12632             11132   0 AggregatorHost
+    386      22    14212      29508       0.50  22824   1 ApplicationFrameHost
+    166      10     5816       7532              4948   0 conhost
+    162      10     5796       7912              6124   0 conhost
+    162      10     5792       7928              8200   0 conhost
+    162      10     5904       8236             11736   0 conhost
+    163      10     5792       7968             12400   0 conhost
+    144      10     5908       7236       0.13  12608   1 conhost
+    162      10     5796       7896             15144   0 conhost
+    162      10     5776       7952             16868   0 conhost
+    162      10     5776       7924             17688   0 conhost
+    145       8     1392       8192       0.02  17732   1 conhost
+    162      10     5788       8064             17736   0 conhost
+    162      10     5776       7900             18188   0 conhost
+    162      10     5780       7928             18448   0 conhost
+    163      10     5788       7992             18520   0 conhost
+    119       8     5316       6500             28300   0 conhost
+    385      27   150868      77980      14.77  26192   1 CptHost
+   1013     166   104888     133104             18004   0 Dell.CoreServices.Client
+    809      72    51800      53360             16860   0 Dell.Customer.Connect.SubAgent
+    723     139    64572     119344             17440   0 Dell.TechHub.Analytics.SubAgent
+    676     112    98784     125816             15096   0 Dell.TechHub.DataManager.SubAgent
+   1301     140   114868     135800             14804   0 Dell.TechHub.Diagnostics.SubAgent
+   4013     214   241804     266920              8576   0 Dell.TechHub.Instrumentation.SubAgent
+    714      47    51848      55828             16392   0 Dell.Update.SubAgent
+    137       8     1716       9336       0.14  18416   1 dllhost
+    276      14     4304      12420             20772   0 dllhost
+    358      15     4532      21780       1.33  24408   1 dllhost
+     42       9     5520       6168              1376   1 fontdrvhost
+     42       7     1976       3068              1384   0 fontdrvhost
+    506      21    50204      25448             18264   0 IntelConnect
+    366      30    12604      21140       2.05   1708   1 mc-fw-host
+   1306      96   320824     194148              4688   0 mc-fw-host
+    344      21    26272      28600             23052   0 mc-neo-host
+    565      31    34272      40644       2.17  29104   1 Microsoft.SharePoint
+   1531     102    81424     140360       2.19  12204   1 PhoneExperienceHost
+   1202      58    83040     107040      11.52  10504   1 SearchHost
+    607      37    22860      36732             12464   0 servicehost
+   1054      45    64572      69688       0.55   6008   1 ShellExperienceHost
+    685      21     7532      35252      34.23   8988   1 sihost
+   1102      52   137216     109220      12.14  10532   1 StartMenuExperienceHost
+   1436     264   163004     241744             23076   0 SupportAssistAgent
+    134      11     1648       5284              1300   0 svchost
+   1578      30    18088      37084              1356   0 svchost
+   1267      26    15612      18484              1372   0 svchost
+   1694      22    12868      19144              1516   0 svchost
+    368      15     3268       9492              1568   0 svchost
+    112      12     1296       4964              1724   0 svchost
+    238      14     2852       9392              1740   0 svchost
+    200      46    10652      12276              1764   0 svchost
+    285       8     1288       5468              1840   0 svchost
+    466      16     3636      10548              1860   0 svchost
+    261      13     3244       9312              1904   0 svchost
+    333      10     2104       9292              1920   0 svchost
+    270      12     3736       8104              2016   0 svchost
+    495      13     3172       8228              2040   0 svchost
+    212      12     2364       8676              2084   0 svchost
+    167      11     2104       7408              2100   0 svchost
+    219      11     2356       7328              2224   0 svchost
+    360      18     4272       9472              2256   0 svchost
+    287      14     4396      14856              2420   0 svchost
+    127       8     1464       5904              2460   0 svchost
+    182      11     1992       8448              2540   0 svchost
+    425      20     6884      15436              2720   0 svchost
+    236       8     1972       5504              2760   0 svchost
+    198      11     2396       9564              2916   0 svchost
+    308      13     3796      10000              2932   0 svchost
+    486      15    18628      17512              2992   0 svchost
+    304      12     3664      14812              3032   0 svchost
+    453      10     2936       7184              3052   0 svchost
+    246      18     3368      12476              3064   0 svchost
+    192      13     1960       7916              3148   0 svchost
+    223      12     2096       8004              3248   0 svchost
+    210      13     2416      10416              3272   0 svchost
+    462      35    14216      17480              3308   0 svchost
+    330      12    22736      21452              3504   0 svchost
+    527      16     5032      16668              3524   0 svchost
+    169       9     1508       6536              3548   0 svchost
+    234      18     2180       6940              3744   0 svchost
+    281      12     2652       7580              3772   0 svchost
+    225      12     2456       9964              3916   0 svchost
+    585      29    12208      21376              3964   0 svchost
+    265      15     3528      12716              3988   0 svchost
+    191      11     1988       7252              4252   0 svchost
+   1084      29     8032      15340              4368   0 svchost
+    393      26    36316      32584              4392   0 svchost
+    732      37    31936      43480              4432   0 svchost
+    377      22     3184      10420              4536   0 svchost
+    204      16     7288      10884              4596   0 svchost
+    138       8     1456       5184              4788   0 svchost
+    588      20    13556      21636              4916   0 svchost
+    461      21     5656      20412              4984   0 svchost
+    562      23     9464      35604       1.28   5108   1 svchost
+    139       9     1660       6432              5548   0 svchost
+    190     256     2764       7336              5604   0 svchost
+    170       9     1660       6276              5680   0 svchost
+    161      42     1732       6684              5832   0 svchost
+    144       9     1412       6136              6072   0 svchost
+    142       9     1628       7672              7392   0 svchost
+    124       8     2136       5904              8976   0 svchost
+    508      20    15524      27256      11.06   9084   1 svchost
+    292      15     4168      10268              9100   0 svchost
+    286      15     5816      20724              9136   0 svchost
+    113       8     1268       5488       0.00   9148   1 svchost
+    273      14     3324      16680       0.83   9240   1 svchost
+    125       8     1264       6320              9380   0 svchost
+    363      13     2616      12324              9388   0 svchost
+    432      23     5864      18008              9920   0 svchost
+    522      20     5676      21404             10180   0 svchost
+    334      15     4112      22144       3.17  10236   1 svchost
+    274      15     3524      17624       0.45  10940   1 svchost
+    152       9     1876       9128       0.13  11636   1 svchost
+    314      15     3716      14364             12028   0 svchost
+    713      38    14456      25152             13692   0 svchost
+    453      18     6708      20832             14252   0 svchost
+    207      12     2380       9564             16312   0 svchost
+    422      25     3560      12284             19852   0 svchost
+    155       9     1916       7468             21400   0 svchost
+    254      14     3828      11200             21472   0 svchost
+    280      15     3108      13128       0.34  22176   1 svchost
+    466      22     6712      19572             22276   0 svchost
+    227      12     3040      12788             22996   0 svchost
+    287      16     3880      15616             23168   0 svchost
+    178      11     3320      12056             27104   0 svchost
+   1194      70    51560      61052              6984   0 TitanCoreSubAgent
+    468      27    18144      27332      42.52   6964   1 uihost
+    169      12     1512       5956              1052   0 wininit
+    144       8     1436       7820             24324   0 wlanext
+    550      31    11620      17172              1480   0 WUDFHost
+    288      16     6104      14308              1664   0 WUDFHost
+    375      14     6480       8428              2060   0 WUDFHost
+    297       9     1880       6140              3372   0 WUDFHost
+
+
+(base) PS C:\Users\theeba\PS\day3> $mydirs=@("p1.log","p2.log","p3.java","p4.c","temp.log","repo.log")
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> foreach($var in $mydirs){
+>> $var -replace ".log", ".txt"
+>> }
+p1.txt
+p2.txt
+p3.java
+p4.c
+temp.txt
+repo.txt
+(base) PS C:\Users\theeba\PS\day3>
+#################################################################################
+-----------------------------------------------------------------------------
+
+RegEx   -> .net Class
+|----match()
+|----replace()   
+       ------------> static Methods in [RegEx]
+
+[Classname]::staticMethodName(list..args)
+
+[regEx] :: match($inputvar,$pattern)
+  |           |----static method of regEx
+.net className
+
+
+[regEx] :: replace($inputvar,$pattern,$newStr)
+  |            |--------static method of regEx
+ .Net className
+
+
+Task
+-----
+Read a text file
+Ignore empty line and display remaining data
+------------------------------------------------------------
+
+Property.txt
+------------
+Onboot=True
+bootProto=null
+
+
+
+Task
+----
+step1: Create an empty Hash  $h=@{}
+step2: Display Hash Size    
+step3: Read a property File
+step4: Using the property label as Key and property Value as hash value,
+	add entries to the existing Hash  
+		(key,value)
+
+step 5: Display the HAsh Size
+step 6: update the Onboot =False
+
+step 7: Write the updated hash to a new file
+
+Task
+----
+How to find list of all .ps1 files under D:\ location?
+
+(base) PS C:\Users\theeba\PS\day3> Get-ChildItem -Path ".\*.ps1"
+
+
+    Directory: C:\Users\theeba\PS\day3
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        30-04-2025     10:25            927 p1.ps1
+-a----        30-04-2025     14:15            354 p2.ps1
+-a----        30-04-2025     15:15            191 p3.ps1
+-a----        30-04-2025     15:33           1149 p4.ps1
+
+
+(base) PS C:\Users\theeba\PS\day3> Get-ChildItem -Path "..\*.ps1"
+
+
+    Directory: C:\Users\theeba\PS
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        28-04-2025     12:53             64 p1.ps1
+-a----        28-04-2025     12:58            655 p2.ps1
+-a----        29-04-2025     09:35            380 p3.ps1
+-a----        28-04-2025     14:45            764 p4.ps1
+-a----        28-04-2025     15:58            356 p5.ps1
+-a----        28-04-2025     16:33            628 p6.ps1
+-a----        28-04-2025     16:46            508 p7.ps1
+-a----        28-04-2025     17:11            764 p8.ps1
+
+
+(base) PS C:\Users\theeba\PS\day3> cd ..
+(base) PS C:\Users\theeba\PS> ls
+
+
+    Directory: C:\Users\theeba\PS
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        29-04-2025     17:05                day2
+d-----        30-04-2025     15:33                day3
+-a----        28-04-2025     12:53             64 p1.ps1
+-a----        28-04-2025     12:58            655 p2.ps1
+-a----        29-04-2025     09:35            380 p3.ps1
+-a----        28-04-2025     14:45            764 p4.ps1
+-a----        28-04-2025     15:58            356 p5.ps1
+-a----        28-04-2025     16:33            628 p6.ps1
+-a----        28-04-2025     16:46            508 p7.ps1
+-a----        28-04-2025     17:11            764 p8.ps1
+
+
+(base) PS C:\Users\theeba\PS> cd day3
+(base) PS C:\Users\theeba\PS\day3> Get-ChildItem -Path "..\*.ps1" -Recurse
+
+
+    Directory: C:\Users\theeba\PS\day2
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        29-04-2025     09:44            148 p1.ps1
+-a----        29-04-2025     15:25            143 p10.ps1
+-a----        29-04-2025     17:29           1015 p11.ps1
+-a----        29-04-2025     10:31            639 p2.ps1
+-a----        29-04-2025     12:07            304 p3.ps1
+-a----        30-04-2025     09:29           1755 p4.ps1
+-a----        29-04-2025     12:19            127 p5.ps1
+-a----        29-04-2025     12:34            117 p6.ps1
+-a----        29-04-2025     15:02            339 p7.ps1
+-a----        29-04-2025     17:29           1291 p8.ps1
+-a----        29-04-2025     17:29            136 p9.ps1
+
+
+    Directory: C:\Users\theeba\PS\day3
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        30-04-2025     10:25            927 p1.ps1
+-a----        30-04-2025     14:15            354 p2.ps1
+-a----        30-04-2025     15:15            191 p3.ps1
+-a----        30-04-2025     15:33           1149 p4.ps1
+
+
+    Directory: C:\Users\theeba\PS
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        28-04-2025     12:53             64 p1.ps1
+-a----        28-04-2025     12:58            655 p2.ps1
+-a----        29-04-2025     09:35            380 p3.ps1
+-a----        28-04-2025     14:45            764 p4.ps1
+-a----        28-04-2025     15:58            356 p5.ps1
+-a----        28-04-2025     16:33            628 p6.ps1
+-a----        28-04-2025     16:46            508 p7.ps1
+-a----        28-04-2025     17:11            764 p8.ps1
+
+
+(base) PS C:\Users\theeba\PS\day3> Get-ChildItem -Path "." ".*log"
+(base) PS C:\Users\theeba\PS\day3> Get-ChildItem -Path "." "*.log"
+
+
+    Directory: C:\Users\theeba\PS\day3
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        30-04-2025     12:44          17286 F.log
+
+
+(base) PS C:\Users\theeba\PS\day3> Get-ChildItem -Path "." "*.txt"
+
+
+    Directory: C:\Users\theeba\PS\day3
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        30-04-2025     11:43          74518 d1.txt
+-a----        30-04-2025     12:33             90 IP.txt
+-a----        30-04-2025     15:18             60 Property.txt
+-a----        30-04-2025     15:30            132 r.txt
+-a----        30-04-2025     15:33            126 r2.txt
+
+
+(base) PS C:\Users\theeba\PS\day3> Get-ChildItem  "." "*.txt"
+
+
+    Directory: C:\Users\theeba\PS\day3
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        30-04-2025     11:43          74518 d1.txt
+-a----        30-04-2025     12:33             90 IP.txt
+-a----        30-04-2025     15:18             60 Property.txt
+-a----        30-04-2025     15:30            132 r.txt
+-a----        30-04-2025     15:33            126 r2.txt
+
+
+(base) PS C:\Users\theeba\PS\day3> Get-Alias %
+
+CommandType     Name                                               Version    Source
+-----------     ----                                               -------    ------
+Alias           % -> ForEach-Object
+
+
+(base) PS C:\Users\theeba\PS\day3> Get-ChildItem "." ".*log"
+(base) PS C:\Users\theeba\PS\day3> Get-ChildItem "." "*.txt"
+
+
+    Directory: C:\Users\theeba\PS\day3
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        30-04-2025     11:43          74518 d1.txt
+-a----        30-04-2025     12:33             90 IP.txt
+-a----        30-04-2025     15:18             60 Property.txt
+-a----        30-04-2025     15:30            132 r.txt
+-a----        30-04-2025     15:33            126 r2.txt
+
+
+(base) PS C:\Users\theeba\PS\day3> Get-ChildItem "." "*.txt"|%{$_.BaseName}
+d1
+IP
+Property
+r
+r2
+(base) PS C:\Users\theeba\PS\day3> Get-ChildItem "." "*.txt"|%{$_.FullName}
+C:\Users\theeba\PS\day3\d1.txt
+C:\Users\theeba\PS\day3\IP.txt
+C:\Users\theeba\PS\day3\Property.txt
+C:\Users\theeba\PS\day3\r.txt
+C:\Users\theeba\PS\day3\r2.txt
+(base) PS C:\Users\theeba\PS\day3> cat ..\..\emp.csv
+eid,ename,edept,eplace,ecost
+101,ram,sales,pune,1000
+102,leo,prod,bglore,2000
+103,anu,HR,hyd,3000
+104,paul,sales,bglore,3200
+423,zio,sales,pune,3420
+142,anu,prod,chennai,4300
+949,karthik,sales,bglore,3100
+848,tom,hr,chennai,3940
+931,vijay,prod,chennai,3411
+(base) PS C:\Users\theeba\PS\day3> cat ..\..\emp.csv| %($_.split(",")[0])
+You cannot call a method on a null-valued expression.
+At line:1 char:1
++ cat ..\..\emp.csv| %($_.split(",")[0])
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+
+(base) PS C:\Users\theeba\PS\day3> cat ..\..\emp.csv| %{$_.split(",")[0]}
+eid
+101
+102
+103
+104
+423
+142
+949
+848
+931
+(base) PS C:\Users\theeba\PS\day3> cat ..\..\emp.csv| %{$_.split(",")[1]}
+ename
+ram
+leo
+anu
+paul
+zio
+anu
+karthik
+tom
+vijay
+(base) PS C:\Users\theeba\PS\day3> cat ..\..\emp.csv| %{$_.split(",")[-1]}
+ecost
+1000
+2000
+3000
+3200
+3420
+4300
+3100
+3940
+3411
+(base) PS C:\Users\theeba\PS\day3> cat ..\..\emp.csv| %{$a=$_.split(",");write-Host $a[0]`t$a[-1]}
+eid     eid ename edept eplace ecost[-1]
+101     101 ram sales pune 1000[-1]
+102     102 leo prod bglore 2000[-1]
+103     103 anu HR hyd 3000[-1]
+104     104 paul sales bglore 3200[-1]
+423     423 zio sales pune 3420[-1]
+142     142 anu prod chennai 4300[-1]
+949     949 karthik sales bglore 3100[-1]
+848     848 tom hr chennai 3940[-1]
+931     931 vijay prod chennai 3411[-1]
+(base) PS C:\Users\theeba\PS\day3> cat ..\..\emp.csv| %{$a=$_.split(",");write-Host $a[0]`t$ a[-1]}
+eid     $ a[-1]
+101     $ a[-1]
+102     $ a[-1]
+103     $ a[-1]
+104     $ a[-1]
+423     $ a[-1]
+142     $ a[-1]
+949     $ a[-1]
+848     $ a[-1]
+931     $ a[-1]
+(base) PS C:\Users\theeba\PS\day3> cat ..\..\emp.csv| %{$a=$_.split(",");write-Host $a[0]`t$ $a[-1]}
+eid     $ ecost
+101     $ 1000
+102     $ 2000
+103     $ 3000
+104     $ 3200
+423     $ 3420
+142     $ 4300
+949     $ 3100
+848     $ 3940
+931     $ 3411
+(base) PS C:\Users\theeba\PS\day3> cat ..\..\emp.csv| %{$a=$_.split(",");write-Host $a[0]`t $a[-1]}
+eid      ecost
+101      1000
+102      2000
+103      3000
+104      3200
+423      3420
+142      4300
+949      3100
+848      3940
+931      3411
+(base) PS C:\Users\theeba\PS\day3>
+
+#########################################################################################
+
+
+Function
+
+|-------Group of Statement
+|-------Subscript
+|-------Code reusability
+|-------2 parts
+	|----Function definition
+	|----Function Call
+
+Syntax:-
+------
+
+function functionName{
+	definition  block
+}
+
+functionName     #simple function Call
+
+
+
+Function with arg
+-----------------
+Syntax:-
+----
+
+function functionName(arg1,arg2...argn){
+	definition block
+}
+
+functionName Value1,Value2...ValueN  # functioncall with arg
+
+
+
+$args - Automatic variable- multiple values passed input to function
+   |--- Array
+   |-- Unnamed variable
+
+param- keyword			
+
+param($a1)- named variable
+ - datatype restriction on values
+
+####################################################################################
+(base) PS C:\Users\theeba\PS\day3> function view{
+>> write-Host "This is View Block"
+>> Write-Output "List the files"
+>> echo "Exit from View Block"
+>> }
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> view   # simple function call
+This is View Block
+List the files
+Exit from View Block
+(base) PS C:\Users\theeba\PS\day3> function f1($a1,$a2){
+>> $a1
+>> $a2
+>> }
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> f1 10 20
+10
+20
+(base) PS C:\Users\theeba\PS\day3> f1 10 "data"
+10
+data
+(base) PS C:\Users\theeba\PS\day3> f1 1.22 22
+1.22
+22
+(base) PS C:\Users\theeba\PS\day3> # dynamic type
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> f1 1.22 22 "data1" "data2"
+1.22
+22
+(base) PS C:\Users\theeba\PS\day3> function f1($a1,$a2){
+>> echo $args}
+(base) PS C:\Users\theeba\PS\day3> function f1{
+>> echo $args
+>> $args.gettype()
+>> }
+(base) PS C:\Users\theeba\PS\day3> f1 10 20 30 "data"
+10
+20
+30
+data
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Object[]                                 System.Array
+
+
+(base) PS C:\Users\theeba\PS\day3> function f1($a1,$a2){
+>> echo $a1.gettype().name
+>> echo $a2.gettype().name
+>> }
+(base) PS C:\Users\theeba\PS\day3> f1 10 20
+Int32
+Int32
+(base) PS C:\Users\theeba\PS\day3> f1 "data" 1.22
+String
+Double
+
+(base) PS C:\Users\theeba\PS\day3> function f1([int]$a1,[string]$a2){
+>> echo $a1.gettype().name
+>> echo $a2.gettype().name
+>> }
+(base) PS C:\Users\theeba\PS\day3> f1 10 20
+Int32
+String
+(base) PS C:\Users\theeba\PS\day3> f1 "data1" "data2"
+f1 : Cannot process argument transformation on parameter 'a1'. Cannot convert value "data1" to type "System.Int32". Error: "Input
+string was not in a correct format."
+At line:1 char:4
++ f1 "data1" "data2"
++    ~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [f1], ParameterBindingArgumentTransformationException
+    + FullyQualifiedErrorId : ParameterArgumentTransformationError,f1
+
+(base) PS C:\Users\theeba\PS\day3>  function f1{
+>> echo $args
+>> $args.gettype()
+>> }
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> f1 10 20 "data"
+10
+20
+data
+
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Object[]                                 System.Array
+
+
+(base) PS C:\Users\theeba\PS\day3> function f2{
+>> param($a1)
+>> write-host "from F2---> $a1"
+>> }
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> f2 10
+from F2---> 10
+(base) PS C:\Users\theeba\PS\day3> f2 10.22
+from F2---> 10.22
+(base) PS C:\Users\theeba\PS\day3> f2  "data"
+from F2---> data
+(base) PS C:\Users\theeba\PS\day3> f2  @(1,2,3,"data","test")
+from F2---> 1 2 3 data test
+(base) PS C:\Users\theeba\PS\day3> f2  @{"k1"="v1";"k2"="v2"}
+from F2---> System.Collections.Hashtable
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> function f3{
+>> param([string] $a1, [int]$a2)
+>> write-host "a1 Value : $a1"
+>> write-host "a2 Value : $a2"
+>> }
+(base) PS C:\Users\theeba\PS\day3>
+(base) PS C:\Users\theeba\PS\day3> f3 100 200
+a1 Value : 100
+a2 Value : 200
+(base) PS C:\Users\theeba\PS\day3> f3 "testcode" 323
+a1 Value : testcode
+a2 Value : 323
+(base) PS C:\Users\theeba\PS\day3> f3 "testcode" 323.66
+a1 Value : testcode
+a2 Value : 324
+
+
+###################################################################################
+
+-whatif   -> cmdlets which changes system setting
+          
+remove-Item filepath -Whatif <Enter>
+Not delete - Instead tells what you what happens
+
+-confirm -> asks confirmation
+
+################################################################################
+
+& call operator (or) invoke operator
+$fname="C:\Users\User\p1.ps1"
+
+$fname--> Not invoke p1.ps1
+
+& $fname -> run p1.ps1 script
+
+(or)
+
+Invoke-Expression $fname
+
+
+(base) PS C:\Users\theeba\PS\day3> $c="Get-Process"
+(base) PS C:\Users\theeba\PS\day3> $c
+Get-Process
+(base) PS C:\Users\theeba\PS\day3> & $c
+
+filename:p1.ps1
+----------------
+function f1{
+param($name)
+Write-Host "Hello $name"
+}
+
+-------------------
+
+> & ".\p1.ps1" "Raghav"
+
+Hello Raghav
+
+
+########################################################################################
+
+
+.NET class---> instances --> objects
+
+class classname{
+	members - properties , methods--->static method
+}				|-----> instance methods
+
+
+Get-Member
+
+
+"".split()  "aba".toUpper()
+
+object.properties
+object.instance_methods()   # object based method
+
+classname:: staticMethodName() # no object creation reqd
+
+[regEx]::Match()
+
+
+===========================================================================================
+
+Module-> file
+
+file: p1.psm1
+===============
+
+import-module
+
+function set-nametest{
+	$name -match "^[A-Z][a-z]_$"
+	..
+	..
+}
+function get-name{
+	..
+	..
+}
+function edit-name{
+	..
+	..
+}
+
+export-modulemember -function "get-*"
+export-modulemember -function "set-*"
+export-modulemember -variable "var"
+=================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
